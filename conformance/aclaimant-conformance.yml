@@ -1,0 +1,104 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  openapi/aclaimant-platform-api-openapi.json, https://developer.aclaimant.com/partner/index.html,
+  https://www.aclaimant.com/security, https://trust.aclaimant.com/,
+  https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+conformance:
+- id: openapi
+  conforms: true
+  version: swagger-2.0
+  evidence: >-
+    https://api.aclaimant.com/api/swagger.json - "swagger": "2.0", 24 paths, 25 operations, served to the
+    public Swagger UI at https://api.aclaimant.com/api/index.html. Not OpenAPI 3.x.
+- id: api-keys
+  conforms: true
+  evidence: >-
+    securityDefinitions.apiKeyAuth - apiKey in header, name x-aclaimant-api-key, applied to all 25 operations.
+- id: bearer-token
+  conforms: true
+  evidence: >-
+    Partner API - "Authorization: Bearer <bearer-token>", https://developer.aclaimant.com/partner/index.html
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme in the contract and no OAuth surface for API access. Azure OAuth 2.0 and SAML are
+    documented for END-USER single sign-on into the web application only
+    (https://support.aclaimant.com/hc/en-us/sections/47940330249371-User-Authentication-Single-Sign-On), which
+    is a login flow, not API authorization.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Aclaimant host (see well-known/aclaimant-well-known.yml).
+- id: saml2
+  conforms: true
+  scope: end-user single sign-on to the web application, not the API
+  evidence: >-
+    Published setup guides for Okta, Microsoft Azure AD and Google Workspace SAML SSO -
+    https://support.aclaimant.com/hc/en-us/sections/47940330249371-User-Authentication-Single-Sign-On
+- id: scim
+  conforms: false
+  evidence: No SCIM schema URN, /scim path or user-provisioning endpoint appears in the contract or the docs.
+- id: rfc9457
+  conforms: false
+  evidence: No application/problem+json media type; see errors/aclaimant-problem-types.yml.
+- id: idempotency
+  conforms: partial
+  evidence: >-
+    Natural-key upsert on caller-supplied external identifiers covers 13 of 22 mutating operations; no
+    Idempotency-Key header. See conventions/aclaimant-conventions.yml.
+- id: pagination
+  conforms: false
+  evidence: Neither read operation declares page, cursor, limit or offset parameters.
+- id: iso8601
+  conforms: true
+  evidence: >-
+    'Partner API data-types section defines date-time as "ISO format YYYY-MM-DDTHH:mm:SSz"
+    (example 2019-02-07T21:12:49.935-00:00); the Platform contract documents date fields as
+    "date (format like 2011-01-23)".'
+- id: json-schema
+  conforms: partial
+  evidence: >-
+    Request bodies are fully described with inline JSON Schema draft-4 subsets (Swagger 2.0 flavour), but
+    definitions is empty - every schema is inlined per operation with no component reuse.
+domain_standards:
+- id: iaiabc-edi-claims
+  conforms: false
+  declared: false
+  evidence: >-
+    'The Platform contract carries workers-compensation and medical-bill vocabulary in its transaction type -
+    diagnosis-code-1 through diagnosis-code-12, procedure-type-code, service-code, service-begin/service-end,
+    payment-document-type-code, payee-type, exempt-1099 and indicator-4850 (California Labor Code 4850
+    benefits) - and claim/coverage-type takes values such as "workers-comp". These are recognisable IAIABC /
+    WCIO / X12 837 concepts, but the contract does NOT declare conformance to any of them: there is no
+    standard namespace, URN, message-type identifier, version tag or reference in the spec or on the developer
+    portal. Recorded as observed vocabulary alignment ONLY, not as conformance.'
+- id: acord
+  conforms: false
+  declared: false
+  evidence: >-
+    No ACORD form identifier, ACORD XML namespace or ACORD reference appears in the contract, on the developer
+    portal or in the help center, despite the insurance domain.
+- id: osha-ita
+  conforms: false
+  declared: false
+  evidence: >-
+    Aclaimant supports OSHA 300/300A/301 log production and ITA submission, but the published path is a CSV
+    export uploaded to OSHA's Injury Tracking Application by a human
+    (https://support.aclaimant.com/hc/en-us/articles/29555174381595-Setting-Up-and-Submitting-to-OSHA-s-Injury-Tracking-Application-ITA-CSV),
+    not a machine-readable ITA API integration declared in a contract.
+compliance:
+  published_certifications: []
+  request_gated_certifications:
+  - SOC 2 (report and bridge letter released to customers on request)
+  - GDPR Compliance Statement
+  - Penetration test report
+  - IT policies and IT FAQ
+  trust_center: https://trust.aclaimant.com/
+  request_process: https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+  note: >-
+    Aclaimant operates a named compliance program and a Vanta-hosted trust center, but publishes no
+    certification artifact or attestation period anonymously - everything is released through a request form.
+    The accreditations listed on https://www.aclaimant.com/security (ISO 27001, SSAE16 SOC-1 Type II/ISAE 3402,
+    SOC 2, SOC 3, PCI Level 1, FISMA moderate) are attributed on that page to Aclaimant's INFRASTRUCTURE
+    PARTNERS and are deliberately not credited to Aclaimant here.
+  cross_link: security/aclaimant-trust-center.yml

@@ -1,0 +1,95 @@
+# Aclaimant
+
+> Aclaimant is a risk management information system (RMIS) for policyholders, insurance brokers, carriers
+> and third-party administrators, covering incident reporting and first notice of loss, claims management
+> and analytics, safety and loss control, OSHA logs, policy management, and assets and exposures.
+> Headquarters: 330 N. Wabash, 23rd Floor, Chicago, IL.
+
+Generated: 2026-09-06
+Method: generated (Aclaimant serves no /llms.txt of its own - https://www.aclaimant.com/llms.txt returned 404
+on 2026-09-06). Assembled by API Evangelist from apis.yml and the artifacts in this repository.
+Source of record: https://github.com/api-evangelist/aclaimant
+
+## APIs
+
+- [Aclaimant Platform API](https://api.aclaimant.com/api/index.html): Swagger 2.0, base
+  https://api.aclaimant.com/api. 25 operations over answer bundles, incidents, claims, claim reports, events,
+  event types, files, companies, policies, policy programs, exposures and exposure summations, plus seven
+  bulk jobs polled at GET /v1/bulk/status/{id}. Auth: x-aclaimant-api-key request header. Responses can be
+  JSON, transit+json or EDN.
+- [Aclaimant Partner / Third-party API](https://developer.aclaimant.com/partner/index.html): base
+  https://api.aclaimant.com/partner. Two endpoints for TPAs, carriers and brokers - POST
+  /claims/{claim-id}/receipt to acknowledge a submitted claim, PUT /claims/{claim-id} to post claim status and
+  loss-run claim-report financials. Auth: Authorization: Bearer token issued by Aclaimant. No machine-readable
+  contract is published for this surface.
+
+## Machine-readable contracts
+
+- [Platform API Swagger 2.0](https://api.aclaimant.com/api/swagger.json): the live contract.
+- [Swagger UI console](https://api.aclaimant.com/api/index.html): reads the contract; Try it out requires a key.
+
+## Documentation
+
+- [Developer portal](https://developer.aclaimant.com/): two sections, Partner / Third-party and End-user.
+  The End-user section reads "Coming soon..."; the portal footer date is 2019.
+- [Help center](https://support.aclaimant.com/hc/en-us): product documentation, integration setup (ADP
+  Workforce Now, UKG Pro, Vista Bridge), SSO setup, and dated product release notes.
+- [Product release notes](https://support.aclaimant.com/hc/en-us/sections/4406733144859-Product-Updates-Releases):
+  roughly biweekly, 23 published entries.
+
+## Operating notes for agents
+
+- Records are addressed by (company-ident, external-ident) - a tenant identifier plus a key the CALLER owns.
+- Idempotency is PARTIAL. The v2 upserts and the PATCH operations are replay-safe because they are keyed on
+  your external identifier. The nine v1 create operations and both Partner API writes are not: there is no
+  Idempotency-Key header anywhere, and a repeated POST creates a second record.
+- Reversibility is NONE. No DELETE, cancel, void, reverse or restore operation exists on either surface, and
+  no retention or restore window is published. Treat every create as final.
+- High volume goes through the bulk operations, which enqueue a job and return a status URL - do not fan out
+  single writes.
+- Rate limiting: 429 "You're requesting too frequently. Slow down." is documented for the Partner API. No
+  numeric limit, window and no RateLimit-*/Retry-After header is published.
+- Errors are bespoke JSON, not RFC 9457. 24 of the 25 Platform operations declare a single empty "default"
+  response, so error shapes are largely undocumented.
+- No operationId exists in the upstream contract. This repository's overlay assigns stable ones.
+- POST /v1/answers/prototype is the only rehearsal operation - it resolves a workflow and input map without
+  creating an answer bundle.
+- GET https://api.aclaimant.com/status is unauthenticated and returns build, uptime and queue depth.
+
+## Access and commercial
+
+- [Plans and pricing](https://www.aclaimant.com/plans-and-pricing): three tiers - RMIS Basics, RMIS Core,
+  RMIS Enterprise - with no published prices. No free tier, no trial, no self-serve signup.
+- [Login](https://dashboard.aclaimant.com/login)
+- API keys are issued through Aclaimant, not through a developer signup.
+
+## Operations, security and trust
+
+- [Status page](https://status.aclaimant.com/) (StatusCake public report)
+- [Responsible disclosure](https://www.aclaimant.com/responsible-disclosure) - security@aclaimant.com, PGP
+  encryption requested. No bug bounty, no /.well-known/security.txt.
+- [Security protocols](https://www.aclaimant.com/security)
+- [Trust center](https://trust.aclaimant.com/) (Vanta-hosted). SOC 2 information, a SOC 2 bridge letter, a
+  penetration test report and a GDPR compliance statement are released to customers
+  [on request](https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request);
+  none is published anonymously.
+
+## Not available
+
+- No MCP server (https://api.aclaimant.com/mcp returns 404; mcp.aclaimant.com does not resolve).
+- No A2A agent card (/.well-known/agent-card.json and /.well-known/agent.json miss on every host).
+- No /.well-known document of any kind on any Aclaimant host.
+- No first-party SDK in npm, PyPI, RubyGems, Maven, NuGet, crates.io or pkg.go.dev.
+- No CLI, no published webhooks, no AsyncAPI, no GraphQL, no gRPC, no SOAP/WSDL.
+- No OAuth 2.0 or OIDC for API authorization (SAML and Azure OAuth cover human SSO only).
+
+## Company
+
+- [Website](https://www.aclaimant.com/)
+- [About](https://www.aclaimant.com/about-us)
+- [Blog](https://www.aclaimant.com/blog)
+- [News](https://www.aclaimant.com/news)
+- [Partners](https://www.aclaimant.com/partners)
+- [GitHub](https://github.com/aclaimant)
+- [Terms of service](https://www.aclaimant.com/service-agreement)
+- [Privacy policy](https://www.aclaimant.com/privacy-policy)

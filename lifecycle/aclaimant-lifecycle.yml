@@ -1,0 +1,53 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://api.aclaimant.com/api/index.html, https://developer.aclaimant.com/partner/index.html,
+  https://status.aclaimant.com/, https://www.aclaimant.com/service-agreement
+versioning:
+  scheme: url-path
+  detail: >-
+    The Platform API versions in the URL path under basePath /api - /v1/* and /v2/* coexist, with v2 carrying
+    the newer upsert and bulk semantics (v2 answers, company, policy, program, bulk/answers, bulk/policies,
+    bulk/programs, bulk/exposures, bulk/exposure-summations) while v1 keeps create-only answers, incidents,
+    claims, events, files and the bulk status endpoint. The Partner API is unversioned.
+  media_type_versioning: false
+  header_versioning: false
+  evidence: openapi/aclaimant-platform-api-openapi.json
+deprecation:
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  deprecated_operations: []
+  note: >-
+    No deprecation or sunset policy is published on the developer portal, the Swagger contract, the service
+    agreement or the help center. No operation in the Swagger document carries deprecated: true. The v1
+    endpoints superseded by v2 upserts are not marked deprecated anywhere. No Deprecation pointer is emitted,
+    because there is no deprecation policy to point at.
+status_page:
+  published: true
+  url: https://status.aclaimant.com/
+  provider: StatusCake
+  machine_readable: false
+  note: >-
+    StatusCake public report at status.aclaimant.com (CNAME uptimessl.statuscake.com), HTTP 200. Uptime history
+    and announcements render client-side; no JSON status API or RSS/Atom incident feed is exposed.
+  evidence:
+  - url: https://status.aclaimant.com/
+    status: 200
+health_endpoint:
+  published: true
+  url: https://api.aclaimant.com/status
+  auth: none
+  status: 200
+  note: >-
+    Unauthenticated JSON health endpoint on the API host returning uptime-seconds, current-time, app-version,
+    database-version, queued-artifacts-count, free/total memory, websocket count and the serving pod name.
+    Observed 2026-09-06.
+sla:
+  published: false
+  note: >-
+    The public service agreement at https://www.aclaimant.com/service-agreement is the master subscription
+    terms; no uptime percentage, credit schedule or support response SLA is published outside a contract.
+support_lifecycle:
+  end_of_life_policy: false
+  long_term_support: false

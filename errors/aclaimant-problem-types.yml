@@ -1,0 +1,78 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  openapi/aclaimant-platform-api-openapi.json (response objects) and
+  https://developer.aclaimant.com/partner/index.html (published Errors table for the Partner API)
+format: bespoke-json
+rfc9457: false
+rfc9457_note: >-
+  Neither surface uses application/problem+json. The Platform API returns a plain JSON object; the Partner API
+  documents status codes with prose meanings only.
+envelopes:
+- api: Aclaimant Platform API
+  content_type: application/json
+  shape:
+    error: any
+    incident-ident: string
+  evidence: 'openapi paths./v1/incidents.post.responses.400.schema'
+  note: >-
+    The Platform Swagger declares an explicit 400 schema only on POST /v1/incidents; 24 of its 25 operations
+    declare a single "default" response with an empty description and no schema, so the error body for the
+    rest of the surface is undocumented in the contract.
+- api: Aclaimant Platform API
+  content_type: application/json
+  shape:
+    result: enum [pending, success, error]
+  evidence: 'openapi paths./v1/incidents.post.responses.201.schema (quay.api/result)'
+  note: >-
+    Success envelopes carry a result discriminator that can itself be "error" or "pending", so a 2xx does not
+    guarantee the write completed - bulk operations in particular return a status URL to poll.
+- api: Aclaimant Partner / Third-party API
+  content_type: application/json
+  shape: undocumented
+  evidence: https://developer.aclaimant.com/partner/index.html
+problem_types:
+- status: 400
+  title: Bad Request
+  detail: Your request is invalid.
+  api: partner
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 401
+  title: Unauthorized
+  detail: Your API key is wrong.
+  api: partner
+  remediation: Re-check the bearer token Aclaimant issued for the partner integration.
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 404
+  title: Not Found
+  detail: The specified resource could not be found.
+  api: partner
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 429
+  title: Too Many Requests
+  detail: You're requesting too frequently. Slow down.
+  api: partner
+  remediation: >-
+    Back off and retry. Aclaimant publishes no numeric limit, window, burst or RateLimit/Retry-After response
+    header for this condition.
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 500
+  title: Internal Server Error
+  detail: We had a problem with our servers. Try again later.
+  api: partner
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 503
+  title: Service Unavailable
+  detail: We are temporarily offline. Please try again later.
+  api: partner
+  source: https://developer.aclaimant.com/partner/index.html
+- status: 400
+  title: Incident rejected
+  detail: 'Body: { error, incident-ident }'
+  api: platform
+  source: openapi/aclaimant-platform-api-openapi.json
+problem_type_count: 7
+gaps:
+- No error code registry (symbolic codes) is published for either API.
+- No RFC 9457 problem+json media type.
+- 'Platform Swagger declares responses for 1 of 25 operations; the remaining 24 use an empty "default".'

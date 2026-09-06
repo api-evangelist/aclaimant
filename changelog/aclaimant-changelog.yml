@@ -1,0 +1,156 @@
+generated: '2026-09-06'
+method: searched
+source: https://support.aclaimant.com/hc/en-us/sections/4406733144859-Product-Updates-Releases
+changelog_url: https://support.aclaimant.com/hc/en-us/sections/4406733144859-Product-Updates-Releases
+scheme: 'dated product release notes, roughly biweekly, titled "Product Release: Week of <date>"'
+covers: the Aclaimant web platform (product features). Aclaimant publishes no API-specific changelog and no versioned
+  release notes for the Platform API or Partner API contracts.
+current_version: null
+current_version_note: No product version number is published. The API surface itself is versioned by URL path segment
+  (/v1, /v2) inside the Swagger contract; api.aclaimant.com/status reports an internal app-version build number
+  (observed 93907 on 2026-09-06) that is not a published release identifier.
+entry_count: 23
+window: 12 most recent of 23 published release articles
+entries:
+- version: 'Product Release: Week of August 31st, 2026'
+  date: '2026-09-03'
+  updated: '2026-09-03'
+  url: https://support.aclaimant.com/hc/en-us/articles/55377483892507-Product-Release-Week-of-August-31st-2026
+  breaking: false
+  highlights:
+  - Duplicate Incident Detection
+  - Instant Alerts
+  - Possible Duplicates
+  - Cross-Company Matching
+  - Smart Resolution
+  - AI Next Steps for Answer Bundles
+- version: 'Product Release: Week of August 3rd, 2026'
+  date: '2026-08-06'
+  updated: '2026-08-07'
+  url: https://support.aclaimant.com/hc/en-us/articles/54086080279707-Product-Release-Week-of-August-3rd-2026
+  breaking: false
+  highlights:
+  - Send and Reply From a Shared Email Address
+  - Shared Team Inboxes
+  - Seamless Email Threading
+  - Easier Recipient Suggestions
+  - Centralized Documents Tab for Policies
+  - Unified Search & Filtering
+- version: 'Product Release: Week of July 20th, 2026'
+  date: '2026-07-22'
+  updated: '2026-07-24'
+  url: https://support.aclaimant.com/hc/en-us/articles/53403085435547-Product-Release-Week-of-July-20th-2026
+  breaking: false
+  highlights:
+  - Attach Files from the Files Tab to Notes and Emails
+  - Attach Existing Files
+  - Files
+  - Simplified Uploads
+  - Compact Display
+  - Add attachments
+- version: 'Product Release: Week of July 6th, 2026'
+  date: '2026-07-08'
+  updated: '2026-07-09'
+  url: https://support.aclaimant.com/hc/en-us/articles/52781812367387-Product-Release-Week-of-July-6th-2026
+  breaking: false
+  highlights:
+  - Scheduled Safety Reports & Task Improvements
+  - Granular Daily Schedules
+  - Collective-Level Assignees & Watchers
+  - Individual Copy Generation
+  - Task Navigation & Labeling Updates
+  - '"My tasks" Workspace'
+- version: 'Product Release: Week of June 22nd, 2026'
+  date: '2026-06-25'
+  updated: '2026-06-25'
+  url: https://support.aclaimant.com/hc/en-us/articles/52169237148443-Product-Release-Week-of-June-22nd-2026
+  breaking: false
+  highlights:
+  - '@Mentions in Notes'
+  - How it works
+  - Notification Flow
+  - Email Alerts
+  - Analytics Dashboard Improvements
+  - Full-Width Layout
+- version: 'Product Release: Week of June 9th, 2026'
+  date: '2026-06-11'
+  updated: '2026-06-12'
+  url: https://support.aclaimant.com/hc/en-us/articles/51596087211163-Product-Release-Week-of-June-9th-2026
+  breaking: false
+  highlights:
+  - What’s New
+  - Centralized Tasks Hub
+  - Tasks tab
+  - Simplified Creation & Scheduling
+  - New Task
+  - AI Assistant
+- version: 'Product Release: Week of May 11th, 2026'
+  date: '2026-05-12'
+  updated: '2026-05-14'
+  url: https://support.aclaimant.com/hc/en-us/articles/50293717733403-Product-Release-Week-of-May-11th-2026
+  breaking: false
+  highlights:
+  - Scheduled Tasks
+  - Set it and Forget it
+  - Improved Visibility
+  - Schedules
+  - My Tasks
+  - Signatures on Public Forms
+- version: 'Product Release: Week of April 27th, 2026'
+  date: '2026-04-30'
+  updated: '2026-04-30'
+  url: https://support.aclaimant.com/hc/en-us/articles/49794588044955-Product-Release-Week-of-April-27th-2026
+  breaking: false
+  highlights:
+  - AI Assistant and Dashboard Task Badge
+  - Why it matters
+- version: 'Product Release: Week of April 13th, 2026'
+  date: '2026-04-15'
+  updated: '2026-04-17'
+  url: https://support.aclaimant.com/hc/en-us/articles/49195626167451-Product-Release-Week-of-April-13th-2026
+  breaking: false
+  highlights:
+  - What’s New?
+  - view and edit only the incidents or safety reports they created
+  - Field Workers
+  - Safety Managers
+  - How to Enable
+  - Settings > Roles
+- version: 'Product Release: Week of March 31st, 2026'
+  date: '2026-04-02'
+  updated: '2026-04-03'
+  url: https://support.aclaimant.com/hc/en-us/articles/48623290446235-Product-Release-Week-of-March-31st-2026
+  breaking: false
+  highlights:
+  - Exposures
+  - Exposures Enhancements
+  - More Categories
+  - Easier Comparisons
+  - Smarter Layout
+  - Policy Programs
+- version: 'Product Release: Week of March 16th, 2026'
+  date: '2026-03-18'
+  updated: '2026-03-25'
+  url: https://support.aclaimant.com/hc/en-us/articles/47989488664091-Product-Release-Week-of-March-16th-2026
+  breaking: false
+  highlights:
+  - Extended Policy Fields
+  - Claims module
+  - Extended Policy Fields Module
+  - Comprehensive Policy Details
+  - Broker Detail Section
+  - Advanced Policy Layers & Terms
+- version: 'Product Release: Week of March 2nd, 2026'
+  date: '2026-03-06'
+  updated: '2026-03-25'
+  url: https://support.aclaimant.com/hc/en-us/articles/47502874659099-Product-Release-Week-of-March-2nd-2026
+  breaking: false
+  highlights:
+  - What’s New?
+  - Refreshed Policy Info
+  - New "Broker Details" Section
+  - Smart Forms
+  - Commission
+access_note: The section index and article pages return HTTP 403 to a plain crawler (Zendesk bot challenge) but
+  are publicly readable in a browser and through the anonymous Zendesk Help Center API at support.aclaimant.com/api/v2/help_center,
+  which is how these entries were read.

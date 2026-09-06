@@ -1,0 +1,40 @@
+generated: '2026-09-06'
+method: probed
+source: https://api.aclaimant.com/api/index.html
+console:
+  published: true
+  type: swagger-ui
+  url: https://api.aclaimant.com/api/index.html
+  spec_url: https://api.aclaimant.com/api/swagger.json
+  interactive: true
+  auth_required: true
+  detail: >-
+    Aclaimant serves a live Swagger UI (ring-swagger StandaloneLayout, config at /api/config.json) on the
+    production API host. Any member of the public can read the full 25-operation contract and use Try it out,
+    but every operation declares apiKeyAuth, so an actual call needs a real x-aclaimant-api-key. The console
+    is bound to production - there is no separate host.
+  evidence:
+  - url: https://api.aclaimant.com/api/index.html
+    status: 200
+  - url: https://api.aclaimant.com/api/config.json
+    status: 200
+  - url: https://api.aclaimant.com/api/swagger.json
+    status: 200
+sandbox_environment:
+  published: false
+  test_host: null
+  test_mode: false
+  key_prefixes: []
+  test_data: []
+  test_clock: false
+  note: >-
+    No sandbox or test environment is published. There is no test-vs-live key prefix, no seeded test company,
+    no fixture or trigger tooling, and no time-simulation facility documented anywhere on the developer portal,
+    the Swagger contract or the help center. Nothing here is invented - the absence is the finding.
+product_demo:
+  url: https://www.aclaimant.com/lp-claims-management-solution-interactive-sandbox
+  type: guided product walkthrough (marketing)
+  api_relevant: false
+  note: >-
+    Aclaimant markets an "Interactive Sandbox". It is a click-through demo of the web application for buyers,
+    not an API test environment, and is recorded here only so it is not mistaken for one.

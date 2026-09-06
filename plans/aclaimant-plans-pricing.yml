@@ -1,0 +1,88 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.aclaimant.com/plans-and-pricing
+pricing_url: https://www.aclaimant.com/plans-and-pricing
+pricing_model: quote-only (contact sales / schedule a demo)
+currency: null
+plan_count: 3
+plans:
+- name: RMIS Basics
+  price: null
+  currency: null
+  billing_period: null
+  price_note: No price is published; the tier's call to action is "See a demo".
+  included:
+  - Incident Management & Claim Submission
+  - First notice of loss (FNOL) and near-miss reporting with claim submission to your carrier or TPA
+  - Smart task assignment and notifications
+  - Root cause analysis
+  - Return-to-work event tracking
+  - External file upload (PDFs, images, video, witness statements)
+  add_ons:
+  - OSHA Logs
+  quota: null
+  overage: null
+  api_access: not stated
+- name: RMIS Core
+  price: null
+  currency: null
+  billing_period: null
+  price_note: No price is published.
+  included:
+  - Everything in RMIS Basics
+  - Claim Management & Analytics
+  - Configurable loss-run dashboards
+  - Data feed connection with carrier or TPA
+  - Payment tracking and insights
+  - Safety Reporting
+  - Mobile-optimized field inspection
+  - Configurable safety forms (JSAs, HSAs, etc.)
+  - Smart follow-up tasking and notifications
+  - Safety analytics dashboards
+  add_ons:
+  - Single Sign-On (SSO)
+  - Claim Data Pipeline
+  - Core System Integrations
+  quota: null
+  overage: null
+  api_access: >-
+    "Core System Integrations" is listed as a paid add-on at this tier; Aclaimant does not state whether that
+    add-on is what gates the Platform API key.
+- name: RMIS Enterprise
+  price: null
+  currency: null
+  billing_period: null
+  price_note: No price is published.
+  included:
+  - Everything in RMIS Basics and RMIS Core
+  - Policy Management (deductibles, renewal dates, policy documents, analytics)
+  - Assets and Exposures (property, employees, fleet, equipment, drivers)
+  add_ons:
+  - AI Insights
+  - Benchmarking
+  quota: null
+  overage: null
+  api_access: not stated
+a_la_carte_modules:
+- Incident Management & Claim Submission
+- Claim Management & Analytics
+- Safety Reporting
+- Assets & Exposures
+free_tier: false
+trial: false
+self_serve_signup: false
+signup_note: >-
+  There is no self-serve signup. The only published entry points are "See a demo" / "Schedule a demo" forms
+  and a login at https://dashboard.aclaimant.com/login. A prospect cannot obtain an API key without going
+  through sales.
+api_pricing:
+  published: false
+  note: >-
+    No per-call, per-seat or per-record price is published for the Platform API or the Partner API, and API
+    access does not appear as a line item in any tier.
+tools:
+- name: ROI Calculator
+  url: https://www.aclaimant.com/roi-calculator
+evidence:
+- url: https://www.aclaimant.com/plans-and-pricing
+  status: 200

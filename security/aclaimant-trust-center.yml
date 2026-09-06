@@ -1,0 +1,53 @@
+generated: '2026-09-06'
+method: searched
+source: https://trust.aclaimant.com/
+url: https://trust.aclaimant.com/
+name: Aclaimant Trust Center
+host: trust.aclaimant.com
+platform: Vanta
+platform_evidence: >-
+  trust.aclaimant.com is a CNAME to 5c4f6013f5ea8a08d7799d36.cname.vantatrust.com; the page loads the Vanta
+  trust-report bundle from assets.vanta.com and carries the document link https://app.vanta.com/doc?s=0peek5mgfa7elxxs7ragx4
+machine_readable: false
+machine_readable_note: >-
+  The trust center renders client-side. Anonymous GET of https://trust.aclaimant.com/ returns a 6.5KB HTML
+  shell whose only readable text is the title "Aclaimant Trust Center"; no certification list, control list or
+  subprocessor list is present in the served markup, and the Vanta trust-report API returns 401 to anonymous
+  callers. The certifications below are therefore taken from Aclaimant's own published support article, not
+  from this page.
+certifications:
+- name: SOC 2
+  status: held-per-provider-statement
+  published: false
+  access: request
+  evidence: https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+  note: >-
+    Aclaimant's support article "SOC 2 and IT Compliance Information Request" states that SOC 2 compliance
+    information and a SOC 2 bridge letter are available to customers on request via a linked form. The report
+    itself is not published; no attestation document or period is publicly readable.
+- name: GDPR
+  status: statement-available-on-request
+  published: false
+  access: request
+  evidence: https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+  note: The same article lists a "GDPR Compliance Statement" among the documents released on request.
+- name: Penetration test report
+  status: available-on-request
+  published: false
+  access: request
+  evidence: https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+misattribution_guard: >-
+  https://www.aclaimant.com/security lists "ISO 27001, SSAE16 SOC-1 Type II/ISAE 3402, SOC 2 - Security, SOC 3,
+  PCI Level 1 and FISMA moderate" but attributes them explicitly to Aclaimant's INFRASTRUCTURE PARTNERS
+  ("Our infrastructure partners hold one or more of the following accreditations"), not to Aclaimant. Those
+  accreditations are deliberately NOT recorded as Aclaimant certifications here.
+evidence:
+- url: https://trust.aclaimant.com/
+  status: 200
+  note: Vanta-hosted trust center, title "Aclaimant Trust Center", JS-rendered
+- url: https://support.aclaimant.com/hc/en-us/articles/13754454190363-SOC-2-and-IT-Compliance-Information-Request
+  status: 200
+  note: fetched through the Zendesk Help Center API (support.aclaimant.com/api/v2/help_center)
+- url: https://www.aclaimant.com/security
+  status: 200
+  note: security protocols FAQ; accreditations listed there belong to infrastructure partners

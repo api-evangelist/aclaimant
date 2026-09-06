@@ -1,0 +1,198 @@
+generated: '2026-09-06'
+method: probed
+source: anonymous GET of the named /.well-known paths on every host in this record
+hosts:
+- host: www.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/api-catalog
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+- host: api.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: developer.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/aauth-resource.json
+    status: 403
+- host: dashboard.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/api-catalog
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+- host: support.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+- host: trust.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/api-catalog
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/agent.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    result: soft-404 HTML shell (not a document)
+- host: status.aclaimant.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+summary:
+  documents_served: 0
+  note: No /.well-known document is served on any Aclaimant host. www.aclaimant.com (HubSpot CMS) and support.aclaimant.com
+    (Zendesk) return a real 404 for every path; aclaimant.com, dashboard.aclaimant.com, trust.aclaimant.com and status.aclaimant.com
+    answer 200 with an HTML single-page-app shell for every path, which is a soft-404 and not a document; api.aclaimant.com
+    returns a JSON 404 body {"message":"Resource not found at ..."}; developer.aclaimant.com returns S3/CloudFront 403 AccessDenied
+    for keys that do not exist. No WellKnown, SecurityTxt or AgentCard pointer is emitted, because nothing was served.

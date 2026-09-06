@@ -64,5 +64,43 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Aclaimant is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Aclaimant is a risk management information system (RMIS) used by policyholders, insurance brokers, carriers
+and third-party administrators to run incident reporting and first notice of loss (FNOL), claims management
+and analytics, safety and loss control, OSHA logs, policy management, and assets and exposures. Headquartered
+at 330 N. Wabash, 23rd Floor, Chicago, IL.
+
+## APIs
+
+| API | Base URL | Contract | Auth |
+|---|---|---|---|
+| Aclaimant Platform API | `https://api.aclaimant.com/api` | [Swagger 2.0](https://api.aclaimant.com/api/swagger.json), 24 paths / 25 operations | `x-aclaimant-api-key` header |
+| Aclaimant Partner / Third-party API | `https://api.aclaimant.com/partner` | prose only, [developer portal](https://developer.aclaimant.com/partner/index.html) | `Authorization: Bearer` |
+
+- Developer portal: <https://developer.aclaimant.com/>
+- Live Swagger UI console: <https://api.aclaimant.com/api/index.html>
+- Help center: <https://support.aclaimant.com/hc/en-us>
+- Status page: <https://status.aclaimant.com/> · Trust center: <https://trust.aclaimant.com/>
+- Responsible disclosure: <https://www.aclaimant.com/responsible-disclosure>
+
+## What this profile records
+
+Artifacts in this repository were searched, probed or derived on 2026-09-06 from public sources only:
+`openapi/`, `authentication/`, `conventions/`, `conformance/`, `errors/`, `lifecycle/`, `changelog/`,
+`data-model/`, `packages/`, `plans/`, `rate-limits/`, `sandbox/`, `security/`, `skills/`, `llms/`,
+`overlays/`, `mcp/`, `well-known/`.
+
+Notable findings:
+
+- The machine-readable contract was **not** on the documentation host. It is served from the API host root
+  at `https://api.aclaimant.com/api/swagger.json`, discovered through the Swagger UI's `config.json`.
+- **Idempotency is partial**: the v2 upserts and PATCH operations are replay-safe because they key on a
+  caller-supplied `external-ident`, but the nine v1 create operations and both Partner API writes are not,
+  and there is no `Idempotency-Key` header anywhere.
+- **Reversibility is absent**: no DELETE, cancel, void, reverse or restore operation exists on either
+  surface, and no restore window is published.
+- No MCP server, no A2A agent card, no `/.well-known/` document on any host, no first-party SDK in any
+  package registry, no webhooks or AsyncAPI, no GraphQL, no gRPC, no SOAP.
+- The certifications listed on <https://www.aclaimant.com/security> (ISO 27001, SOC-1/SOC-2/SOC-3, PCI
+  Level 1, FISMA) are attributed on that page to Aclaimant's **infrastructure partners** and are deliberately
+  not credited to Aclaimant. Aclaimant's own SOC 2 report, bridge letter, penetration test report and GDPR
+  statement are released to customers on request and are not published anonymously.

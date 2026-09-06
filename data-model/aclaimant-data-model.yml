@@ -1,0 +1,210 @@
+generated: '2026-09-06'
+method: derived
+source: openapi/aclaimant-platform-api-openapi.json
+note: >-
+  Derived from the inline request/response schemas of the Aclaimant Platform API. The Swagger document has an
+  EMPTY definitions block - every schema is inlined per operation - so the graph below is reconstructed from
+  the schema `title` values the contract carries (for example "claim/claim-number",
+  "line-of-coverage/deductible", "transaction/payee-type"), which act as the de facto type names, plus the
+  external-identifier parameters that link records together. No entity or relationship is asserted that is not
+  named in the contract.
+identity_convention:
+  detail: >-
+    Records are addressed by (company-ident, external-ident) - a tenant identifier plus a caller-owned key -
+    rather than by an Aclaimant surrogate id. The contract declares named external identifiers for answer
+    bundles, claims, claim-reports, events, files, messages, policies, policy periods, policy-period documents,
+    lines of coverage, programs, transactions, transaction documents, and assets or locations. Claims also
+    accept the composite address (policy-external-ident, claim-number). Incidents additionally carry an
+    Aclaimant-issued incident-id (uuid) returned on create.
+entities:
+- name: company
+  aka: collective
+  key: company-ident
+  operations:
+  - POST /v2/company
+  note: A company may be created by porting configuration from a source company.
+- name: workflow
+  key: aclaimant.service.routes.quay/workflow
+  note: The form definition an answer bundle answers. Referenced by 7 operations; not itself writable via the API.
+- name: answer-bundle
+  key: answer-bundle external identifier
+  fields: [source-identifier, inputs]
+  operations:
+  - POST /v1/answers
+  - POST /v2/answers
+  - PATCH /v1/answers
+  - GET /v1/answers/{company-ident}/{external-ident}
+  - POST /v1/answers/prototype
+  - POST /v1/bulk/answers
+  - POST /v1/bulk/answer-updates
+  - POST /v2/bulk/answers
+- name: incident
+  key: incident-ident
+  fields: [incident-id (uuid), company-ident, integration]
+  operations:
+  - POST /v1/incidents
+- name: claim
+  key: claim external identifier
+  fields: [claim-number, status (open|closed), status-date, submitted-date, coverage-type,
+    policy-period-effective-date, "track-reserves?", default-adjuster, default-adjuster-email,
+    default-adjuster-phone, extended-fields, policy-external-ident]
+  operations:
+  - POST /v1/claims
+  - PATCH /v1/claims/{claim-id}
+  - PATCH /v1/claims/{policy-external-ident}/{claim-number}
+- name: claim-report
+  key: claim-report external identifier
+  fields: [adjuster, adjuster-email, adjuster-phone, note, reported-date, target-close-date]
+  operations:
+  - POST /v1/claims/{policy-external-ident}/{claim-number}/claim-reports
+  note: A dated loss-run snapshot of a claim's financials.
+- name: claim-report-entry
+  fields: [category, payments, reserves, recovery, oslr]
+  note: >-
+    Line item within a claim-report. The Partner API documents the category enum - medical, indemnity, expense,
+    legal, vocational, recovery, general, property-damage, cargo-loss, cargo-damage - with positive
+    two-decimal payment-amount and reserve-amount.
+- name: event
+  key: event external identifier
+  fields: [type, category, sub-category, subject (title/subtitle tuple), location, note, external-ident]
+  operations:
+  - POST /v1/events
+  - PATCH /v1/events/{external-ident}
+  - GET /v1/event-types/{company-ident}
+- name: file
+  key: file external identifier
+  fields: [filename, content-type, content-length, tags, "confidential?"]
+  operations:
+  - POST /v1/files
+- name: message
+  key: message external identifier
+  fields: [body-markdown, sender-name, sender-email, sender-phone-number, sender-user-id, received-at,
+    metadata, "confidential?"]
+- name: policy
+  key: policy external identifier
+  fields: [extensions]
+  operations:
+  - POST /v2/policy
+  - POST /v2/bulk/policies
+- name: policy-extension
+  fields: [inception-date, broker-total-commission, broker-total-fee]
+- name: policy-period
+  key: policy-period external identifier
+  fields: [effective, expiration, extensions]
+- name: policy-period-document
+  key: policy-period-document external identifier
+- name: line-of-coverage
+  key: line-of-coverage external identifier
+  fields: [premium, deductible, coverage-limit-per-claim, total-coverage-limit, extensions]
+- name: loc-extension
+  fields: [sir-amount, aggregate-deductible, retro-date, tail-date, net-premium, gross-premium-total,
+    premium-adjustments, premium-invoice-total, taxes-and-fees, bond-effective-start, bond-effective-end,
+    bond-fe-taxes]
+- name: program
+  aka: policy-program
+  key: program external identifier
+  fields: [name]
+  operations:
+  - POST /v2/program
+  - POST /v2/bulk/programs
+- name: exposure
+  fields: [start-date, end-date]
+  operations:
+  - POST /v2/bulk/exposures
+- name: exposure-summation
+  operations:
+  - POST /v2/bulk/exposure-summations
+- name: asset-or-location
+  key: asset or location external identifier
+- name: transaction
+  key: transaction external identifier
+  fields: [date, category, sub-category, payments, reserves, recovery, payer, payee, payee-type,
+    payee-address, payee-address-type, adjuster-name, invoice-identifier, invoice-date, invoice-amount,
+    check-identifier, check-issue-date, check-clear-date, check-void-date, check-memo, bank-name,
+    account-number, routing-number, tax-id, exempt-1099, "self-pay?", note, service-begin, service-end,
+    service-code, procedure-type-code, payment-document-type-code, indicator-4850,
+    'diagnosis-code-1 .. diagnosis-code-12']
+- name: transaction-document
+  key: transaction-document external identifier
+- name: bulk-job
+  key: id
+  operations:
+  - GET /v1/bulk/status/{id}
+relationships:
+- from: company
+  to: answer-bundle
+  type: has_many
+  via: company-ident
+- from: company
+  to: incident
+  type: has_many
+  via: company-ident
+- from: company
+  to: event-type
+  type: has_many
+  via: company-ident
+- from: workflow
+  to: answer-bundle
+  type: has_many
+  via: workflow identifier in the answers request body
+- from: answer-bundle
+  to: claim
+  type: has_many
+  via: 'POST /v1/claims - "Create a claim for an existing item"'
+- from: answer-bundle
+  to: event
+  type: has_many
+  via: 'POST /v1/events - "Create an event for an existing item"'
+- from: answer-bundle
+  to: file
+  type: has_many
+  via: 'POST /v1/files - "Create files for existing items"'
+- from: policy
+  to: claim
+  type: has_many
+  via: policy-external-ident
+- from: policy
+  to: policy-period
+  type: has_many
+  via: policy-period external identifier
+- from: policy
+  to: line-of-coverage
+  type: has_many
+  via: line-of-coverage external identifier
+- from: policy-period
+  to: policy-period-document
+  type: has_many
+  via: policy-period-document external identifier
+- from: program
+  to: policy
+  type: has_many
+  via: program external identifier
+- from: claim
+  to: claim-report
+  type: has_many
+  via: 'POST /v1/claims/{policy-external-ident}/{claim-number}/claim-reports'
+- from: claim-report
+  to: claim-report-entry
+  type: has_many
+  via: entries[]
+- from: claim
+  to: transaction
+  type: has_many
+  via: transaction external identifier
+- from: transaction
+  to: transaction-document
+  type: has_many
+  via: transaction-document external identifier
+- from: asset-or-location
+  to: exposure
+  type: has_many
+  via: 'POST /v2/bulk/exposures - "Upsert many exposures to assets and locations"'
+- from: exposure
+  to: exposure-summation
+  type: has_many
+  via: 'POST /v2/bulk/exposure-summations'
+entity_count: 23
+relationship_count: 18
+gaps:
+- components/definitions is empty; there is no reusable schema catalogue to $ref.
+- Only two read operations exist, so the graph cannot be traversed through the API - it is a write-side model.

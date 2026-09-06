@@ -1,0 +1,174 @@
+generated: '2026-09-06'
+method: derived
+source: >-
+  openapi/aclaimant-platform-api-openapi.json and https://developer.aclaimant.com/partner/index.html
+apis:
+- Aclaimant Platform API
+- Aclaimant Partner / Third-party API
+auth:
+  platform_api:
+    style: api-key-header
+    parameter: x-aclaimant-api-key
+    applied: all 25 operations declare security apiKeyAuth
+  partner_api:
+    style: bearer-token
+    header: 'Authorization: Bearer <bearer-token>'
+    issued_by: Aclaimant provisions the token to the partner
+    source: https://developer.aclaimant.com/partner/index.html
+  cross_link: authentication/aclaimant-authentication.yml
+content_negotiation:
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  - application/transit+json
+  - application/edn
+  note: >-
+    Unusually for a REST surface, the Platform API can serialise responses as Clojure transit+json and EDN as
+    well as JSON. This is a genuine capability declared in the contract, not an accident - an agent may request
+    any of the three via Accept.
+identity_and_addressing:
+  scheme: caller-supplied external identifiers
+  detail: >-
+    Nearly every operation is addressed by a tenant identifier (company-ident) plus a caller-owned
+    external-ident rather than by an Aclaimant surrogate id. The contract carries named external-identifier
+    types for answer bundles, claims, claim-reports, events, files, messages, policies, policy periods,
+    policy-period documents, lines of coverage, programs, transactions, transaction documents and assets or
+    locations. A claim can alternatively be addressed by (policy-external-ident, claim-number).
+  consequence: >-
+    Because the client owns the key, a repeated write addresses the same record - this is the mechanism that
+    makes the v2 upserts replay-safe.
+idempotency:
+  supported: true
+  coverage: partial
+  mechanism: natural-key upsert on caller-supplied external identifiers (no Idempotency-Key header)
+  header: null
+  retention: not documented
+  scope:
+  - POST /v2/answers
+  - POST /v2/company
+  - POST /v2/policy
+  - POST /v2/program
+  - POST /v2/bulk/answers
+  - POST /v2/bulk/policies
+  - POST /v2/bulk/programs
+  - POST /v2/bulk/exposures
+  - POST /v2/bulk/exposure-summations
+  - PATCH /v1/answers
+  - PATCH /v1/claims/{claim-id}
+  - PATCH /v1/claims/{policy-external-ident}/{claim-number}
+  - PATCH /v1/events/{external-ident}
+  not_covered:
+  - POST /v1/answers
+  - POST /v1/bulk/answers
+  - POST /v1/claims
+  - POST /v1/claims/{policy-external-ident}/{claim-number}/claim-reports
+  - POST /v1/events
+  - POST /v1/files
+  - POST /v1/incidents
+  - PUT /claims/{claim-id} (Partner API)
+  - POST /claims/{claim-id}/receipt (Partner API)
+  verdict: >-
+    13 of the 22 mutating operations are idempotent by construction because they are declared upserts or
+    patches keyed on an identifier the caller supplies. The nine v1 create operations and both Partner API
+    writes are not - they are create-only, carry no idempotency key, and a repeated POST is a second record.
+    There is no Idempotency-Key header anywhere on the surface and no replay-window is documented, so the
+    guarantee is structural rather than contractual: coverage is partial, not full.
+  evidence: openapi/aclaimant-platform-api-openapi.json
+dry_run_mode:
+  supported: partial
+  operation: POST /v1/answers/prototype
+  detail: >-
+    "Return the specification for a given workflow and input map" - lets a caller submit a workflow identifier
+    and an input map and receive back the resolved answer-bundle specification without creating an answer
+    bundle. It is a rehearsal for the answers surface only; incidents, claims, claim reports, events, files,
+    policies, programs and exposures have no preview operation.
+  evidence: openapi/aclaimant-platform-api-openapi.json
+reversibility:
+  grade: none
+  applicable: true
+  detail: >-
+    The Platform API declares no DELETE operation and no cancel, void, reverse, undo, rollback or restore
+    operation on any of its 24 paths, and the Partner API declares none either. Once an incident, claim,
+    claim report, event or file is created there is no documented API path to remove or reverse it; the only
+    write-back is a further PATCH that changes field values (for example claim/status to "closed", which is a
+    state change and not a reversal). No retention or restore window is stated anywhere in the contract, the
+    developer portal or the help center, so nothing here is graded "documented".
+  surfaces:
+  - write: POST /v1/incidents
+    reversal: none
+    window: null
+  - write: POST /v1/claims
+    reversal: none
+    window: null
+    note: PATCH /v1/claims/{claim-id} can set claim/status to closed, which is a lifecycle state, not an undo.
+  - write: POST /v1/claims/{policy-external-ident}/{claim-number}/claim-reports
+    reversal: none
+    window: null
+  - write: POST /v1/files
+    reversal: none
+    window: null
+  - write: POST /v1/events
+    reversal: none
+    window: null
+  - write: 'POST /v2/{answers,company,policy,program} and the v2 bulk upserts'
+    reversal: none
+    window: null
+    note: >-
+      An upsert can be corrected by re-upserting the same external-ident with different values, which is
+      overwrite, not reversal - the prior state is not recoverable through the API.
+  - write: POST /claims/{claim-id}/receipt (Partner API)
+    reversal: none
+    window: null
+  ui_only_note: >-
+    The 2026-08-31 product release adds duplicate-record resolution in the web application ("keeping one record
+    and canceling the rest"). That is an in-app affordance; no corresponding API operation is published, so it
+    is not counted here.
+pagination:
+  supported: false
+  note: >-
+    The surface is write-oriented. Only two read operations exist (GET /v1/answers/{company-ident}/{external-ident}
+    and GET /v1/event-types/{company-ident}) and neither declares page, cursor, limit or offset parameters. A
+    quay.api/search-results type appears in request bodies, but no paginated collection endpoint is published.
+async_and_bulk:
+  pattern: enqueue-and-poll
+  detail: >-
+    All five v2 bulk operations plus the two v1 bulk operations "enqueue a bulk job and return a status URL".
+    The caller then polls GET /v1/bulk/status/{id}. api.aclaimant.com/status independently exposes a
+    queued-artifacts-count, confirming the job queue is real.
+  operations:
+  - POST /v1/bulk/answers
+  - POST /v1/bulk/answer-updates
+  - POST /v2/bulk/answers
+  - POST /v2/bulk/policies
+  - POST /v2/bulk/programs
+  - POST /v2/bulk/exposures
+  - POST /v2/bulk/exposure-summations
+  - GET /v1/bulk/status/{id}
+extensibility:
+  mechanism: extended-fields
+  detail: >-
+    claim/extended-fields, policy/extensions, policy-period/extensions and line-of-coverage/extensions are
+    free-form object members that carry tenant-specific data (loc-extension and policy-extension name a
+    fixed set of insurance fields such as sir-amount, retro-date, tail-date, gross-premium-total,
+    broker-total-commission).
+request_id_tracing:
+  supported: unknown
+  note: No correlation, request-id or trace header is documented on either surface.
+error_envelope:
+  cross_link: errors/aclaimant-problem-types.yml
+  format: bespoke JSON (no RFC 9457)
+rate_limit_signalling:
+  cross_link: rate-limits/aclaimant-rate-limits.yml
+  documented_status: 429 (Partner API docs)
+  headers: none documented
+versioning:
+  cross_link: lifecycle/aclaimant-lifecycle.yml
+  scheme: url-path (/v1, /v2)
+gaps:
+- No Idempotency-Key header on any write.
+- No reversal or delete operation anywhere on the published surface.
+- No pagination on the two read operations.
+- No request-id / correlation header.
+- 'No response schemas on 24 of 25 Platform operations (single empty "default" response).'
+- No operationId on any of the 25 operations, so tools cannot be named from the contract.

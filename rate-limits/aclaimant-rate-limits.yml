@@ -1,0 +1,38 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://developer.aclaimant.com/partner/index.html and openapi/aclaimant-platform-api-openapi.json
+limit_count: 0
+limits: []
+note: >-
+  Aclaimant publishes no numeric rate limit. The Partner API error table documents the exhaustion condition -
+  "429 Too Many Requests - You're requesting too frequently. Slow down." - but names no quota, window, burst
+  or per-key/per-account scope, and the Platform API Swagger declares no 429 response on any of its 25
+  operations. An honest zero: the throttle exists, the number does not.
+exhaustion:
+  status_code: 429
+  documented_for:
+  - Aclaimant Partner / Third-party API
+  message: You're requesting too frequently. Slow down.
+  source: https://developer.aclaimant.com/partner/index.html
+response_headers:
+  documented: []
+  observed: []
+  retry_after: not documented
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented. Nothing could be observed live either:
+    every operation on both surfaces requires a credential, so no unauthenticated response carries limit
+    headers. The one anonymous endpoint on the API host, GET https://api.aclaimant.com/status (HTTP 200,
+    observed 2026-09-06), returns no rate-limit header of any kind.
+backpressure:
+  mechanism: enqueue-and-poll for bulk writes
+  detail: >-
+    The seven bulk operations enqueue a job and return a status URL polled at GET /v1/bulk/status/{id} rather
+    than rate-limiting a synchronous loop. This is the surface's real answer to volume, and it is the pattern
+    an agent should use instead of fanning out single writes.
+  cross_link: conventions/aclaimant-conventions.yml
+evidence:
+- url: https://developer.aclaimant.com/partner/index.html
+  status: 200
+- url: https://api.aclaimant.com/status
+  status: 200

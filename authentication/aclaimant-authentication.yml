@@ -1,0 +1,65 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  openapi/aclaimant-platform-api-openapi.json, https://developer.aclaimant.com/partner/index.html,
+  https://support.aclaimant.com/hc/en-us/sections/47940330249371-User-Authentication-Single-Sign-On
+docs: https://developer.aclaimant.com/partner/index.html
+summary:
+  types:
+  - apiKey
+  - http-bearer
+  api_key_in:
+  - header
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+schemes:
+- name: apiKeyAuth
+  api: Aclaimant Platform API
+  type: apiKey
+  in: header
+  parameter: x-aclaimant-api-key
+  applied_to: all 25 operations (every operation declares security apiKeyAuth)
+  key_prefix: not published
+  rotation: not documented
+  provisioning: >-
+    Not self-serve. There is no developer signup; a key is issued through Aclaimant during implementation.
+    The pricing page lists "Core System Integrations" as a paid add-on on the RMIS Core tier but does not say
+    it is what gates API access.
+  sources:
+  - openapi/aclaimant-platform-api-openapi.json
+- name: partnerBearer
+  api: Aclaimant Partner / Third-party API
+  type: http
+  scheme: bearer
+  header: 'Authorization: Bearer <bearer-token>'
+  applied_to: both documented endpoints
+  provisioning: 'Published verbatim: "Aclaimant will provide you with a bearer token".'
+  token_lifetime: not documented
+  refresh: not documented
+  sources:
+  - https://developer.aclaimant.com/partner/index.html
+end_user_authentication:
+  scope: web application login only - NOT API authorization
+  methods:
+  - password credentials
+  - SAML 2.0 SSO (Okta, Microsoft Azure AD, Google Workspace)
+  - Azure OAuth 2.0 SSO
+  policy_control: >-
+    Authentication policies can be managed per user
+    (https://support.aclaimant.com/hc/en-us/articles/13653466063771-Managing-Authentication-Policies-by-User).
+  packaging: Single Sign-On (SSO) is a paid add-on on the RMIS Core tier.
+  login_url: https://dashboard.aclaimant.com/login
+  sources:
+  - https://support.aclaimant.com/hc/en-us/sections/47940330249371-User-Authentication-Single-Sign-On
+scopes:
+  published: false
+  note: >-
+    No OAuth scopes or API permission model is published. Authorization is implicit in the key: a Platform API
+    key acts within the company/collective it is issued for, and requests carry company-ident explicitly. No
+    scopes/ artifact is emitted because there is no scope surface to derive one from.
+gaps:
+- No key prefix, key format or rotation guidance published.
+- No token lifetime or refresh flow for the partner bearer token.
+- No OAuth 2.0 / OIDC authorization for API access (SSO covers human login only).
+- No /.well-known/openid-configuration or oauth-authorization-server on any host (all 404).

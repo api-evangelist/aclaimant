@@ -1,0 +1,108 @@
+generated: '2026-09-06'
+method: derived
+status: candidate
+source: openapi/aclaimant-platform-api-openapi.json
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+probes:
+- url: https://api.aclaimant.com/mcp
+  status: 404
+  note: 'JSON body {"message":"Resource not found at /mcp."}'
+- url: https://api.aclaimant.com/.well-known/mcp.json
+  status: 404
+- url: https://mcp.aclaimant.com
+  status: null
+  note: NXDOMAIN - no such host
+- url: https://www.aclaimant.com/llms.txt
+  status: 404
+note: >-
+  Aclaimant ships no MCP server, hosted or stdio. Nothing was found on the developer portal, the Swagger UI,
+  the Zendesk help center (a search for "mcp" and "webhook" returns nothing relevant), the GitHub org, or npm.
+  The tools below are a CANDIDATE surface DERIVED from the published Swagger 2.0 operations so an agent
+  integrator can see what a server would expose; Aclaimant has not published any of them.
+auth:
+  scheme: apiKey
+  parameter: x-aclaimant-api-key
+  location: header
+tools:
+- name: create_answer_bundle
+  rest: POST /v1/answers
+  description: Create a response (answer bundle) to a workflow.
+- name: upsert_answer_bundle
+  rest: POST /v2/answers
+  description: Create or update a response (single answer bundle) to a workflow.
+- name: update_answer_bundle
+  rest: PATCH /v1/answers
+  description: Update an existing answer bundle.
+- name: get_answer_bundle
+  rest: GET /v1/answers/{company-ident}/{external-ident}
+  description: Retrieve an answer bundle by company and external identifier.
+- name: get_answer_prototype
+  rest: POST /v1/answers/prototype
+  description: Return the specification for a given workflow and input map.
+- name: create_incident
+  rest: POST /v1/incidents
+  description: Create an incident (v2).
+- name: create_claim
+  rest: POST /v1/claims
+  description: Create a claim for an existing item.
+- name: update_claim
+  rest: PATCH /v1/claims/{claim-id}
+  description: Update a claim by Aclaimant claim id.
+- name: update_claim_by_number
+  rest: PATCH /v1/claims/{policy-external-ident}/{claim-number}
+  description: Update a claim addressed by policy external identifier and claim number.
+- name: create_claim_report
+  rest: POST /v1/claims/{policy-external-ident}/{claim-number}/claim-reports
+  description: Post a loss-run claim financial report against a claim.
+- name: create_event
+  rest: POST /v1/events
+  description: Create an event for an existing item.
+- name: update_event
+  rest: PATCH /v1/events/{external-ident}
+  description: Update an event.
+- name: list_event_types
+  rest: GET /v1/event-types/{company-ident}
+  description: Available event types for a given company.
+- name: create_files
+  rest: POST /v1/files
+  description: Create files for existing items.
+- name: upsert_company
+  rest: POST /v2/company
+  description: Create or update a company, optionally porting config from a source company.
+- name: upsert_policy
+  rest: POST /v2/policy
+  description: Create or update a policy.
+- name: upsert_program
+  rest: POST /v2/program
+  description: Create or update a policy program.
+- name: bulk_create_answers
+  rest: POST /v1/bulk/answers
+  description: Create many answers to workflows. Enqueues a bulk job and returns a status URL.
+- name: bulk_update_answers
+  rest: POST /v1/bulk/answer-updates
+  description: Update many answers to workflows. Enqueues a bulk job and returns a status URL.
+- name: bulk_upsert_answers
+  rest: POST /v2/bulk/answers
+  description: Upsert many answers to workflows. Enqueues a bulk job and returns a status URL.
+- name: bulk_upsert_policies
+  rest: POST /v2/bulk/policies
+  description: Upsert many policies. Enqueues a bulk job and returns a status URL.
+- name: bulk_upsert_programs
+  rest: POST /v2/bulk/programs
+  description: Upsert many policy programs. Enqueues a bulk job and returns a status URL.
+- name: bulk_upsert_exposures
+  rest: POST /v2/bulk/exposures
+  description: Upsert many exposures to assets and locations. Enqueues a bulk job and returns a status URL.
+- name: bulk_upsert_exposure_summations
+  rest: POST /v2/bulk/exposure-summations
+  description: Upsert many exposure summations. Enqueues a bulk job and returns a status URL.
+- name: get_bulk_status
+  rest: GET /v1/bulk/status/{id}
+  description: See the status of a given bulk job.
+tool_count: 25

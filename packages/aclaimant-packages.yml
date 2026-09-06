@@ -1,0 +1,48 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  registry.npmjs.org search, pypi.org, rubygems.org, api.github.com repository search, the Aclaimant developer
+  portal (developer.aclaimant.com) and the Swagger UI at api.aclaimant.com/api
+packages: []
+package_count: 0
+official_sdk_count: 0
+findings:
+- registry: npm
+  query: aclaimant
+  url: https://registry.npmjs.org/-/v1/search?text=aclaimant
+  status: 200
+  results: 0
+  version: null
+  published: null
+  note: No npm package matches "aclaimant"; checked, nothing to record.
+- registry: pypi
+  query: aclaimant
+  url: https://pypi.org/pypi/aclaimant/json
+  status: 404
+  results: 0
+  version: null
+  published: null
+  note: No PyPI project named aclaimant.
+- registry: rubygems
+  query: aclaimant
+  url: https://rubygems.org/api/v1/search.json?query=aclaimant
+  status: 200
+  results: 0
+  version: null
+  published: null
+  note: Empty result array.
+- registry: github
+  query: aclaimant
+  url: https://api.github.com/search/repositories?q=aclaimant
+  status: 200
+  results: 2
+  version: null
+  published: null
+  note: >-
+    Only two repositories match. github.com/aclaimant/helm-charts is first-party but is infrastructure Helm
+    charts, not an API client library (last push 2025-12-19). github.com/noahwillen/autoaclaimant is a
+    third-party "Webhook for Aclaimant Auto Import" and is NOT first-party, so it is not recorded as an SDK.
+note: >-
+  Aclaimant publishes no first-party client library in any public package registry, and its own developer
+  portal offers no download. Integrators call the Platform API directly over HTTP with the x-aclaimant-api-key
+  header. No SDKs pointer is emitted, because no SDK exists.

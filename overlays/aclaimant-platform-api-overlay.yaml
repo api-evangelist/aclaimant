@@ -1,0 +1,138 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Aclaimant Platform API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-06'
+  method: generated
+  source: openapi/aclaimant-platform-api-openapi.json
+  extends: openapi/aclaimant-platform-api-openapi.json
+  upstream: https://api.aclaimant.com/api/swagger.json
+  note: >-
+    The upstream document is Swagger 2.0 and is NEVER mutated. This overlay records only enhancements API
+    Evangelist derived from the document itself and from Aclaimant's public developer portal - a contact
+    address Aclaimant publishes, the host and scheme the document omits, the missing description, tag
+    descriptions, and stable operationIds for the 25 operations that have none. No behaviour, parameter,
+    schema or response is invented.
+actions:
+- target: $.info
+  description: >-
+    Add the description, contact and terms the upstream info block omits. product@aclaimant.com is the address
+    Aclaimant publishes on https://developer.aclaimant.com/ for documentation questions.
+  update:
+    description: >-
+      Integration API for the Aclaimant risk management information system. Create and upsert workflow answer
+      bundles, incidents, claims, claim reports, events, files, companies, policies, policy programs, exposures
+      and exposure summations for a company or collective, plus bulk jobs polled through a status endpoint.
+    contact:
+      name: Aclaimant Product
+      email: product@aclaimant.com
+      url: https://developer.aclaimant.com/
+    termsOfService: https://www.aclaimant.com/service-agreement
+- target: $
+  description: >-
+    The upstream document declares basePath /api but omits host and schemes, so a generated client has no
+    server to call. Both values are observed from the URL the document is served at.
+  update:
+    host: api.aclaimant.com
+    schemes:
+    - https
+- target: $
+  description: Declare the tag descriptions the document uses but never defines.
+  update:
+    tags:
+    - name: answers
+      description: Workflow answer bundles and the claims, events and files attached to them.
+    - name: incidents
+      description: Incident creation.
+    - name: bulk
+      description: Enqueued bulk upsert jobs and their status.
+    - name: companies
+      description: Company / collective provisioning.
+    - name: policies
+      description: Insurance policies, policy periods and lines of coverage.
+    - name: policy-programs
+      description: Policy programs grouping policies.
+    - name: exposures
+      description: Exposures on assets and locations, and their summations.
+- target: $.paths['/v1/answers'].post
+  description: Add a stable operationId (the upstream document defines none for any operation).
+  update:
+    operationId: createAnswerBundle
+- target: $.paths['/v1/answers'].patch
+  update:
+    operationId: updateAnswerBundle
+    summary: Update an existing answer bundle
+- target: $.paths['/v2/answers'].post
+  update:
+    operationId: upsertAnswerBundle
+- target: $.paths['/v1/answers/prototype'].post
+  update:
+    operationId: getAnswerBundlePrototype
+- target: $.paths['/v1/answers/{company-ident}/{external-ident}'].get
+  update:
+    operationId: getAnswerBundle
+    summary: Retrieve an answer bundle by company and external identifier
+- target: $.paths['/v1/incidents'].post
+  update:
+    operationId: createIncident
+- target: $.paths['/v1/claims'].post
+  update:
+    operationId: createClaim
+- target: $.paths['/v1/claims/{claim-id}'].patch
+  update:
+    operationId: updateClaimById
+    summary: Update a claim by Aclaimant claim id
+- target: $.paths['/v1/claims/{policy-external-ident}/{claim-number}'].patch
+  update:
+    operationId: updateClaimByNumber
+    summary: Update a claim addressed by policy external identifier and claim number
+- target: $.paths['/v1/claims/{policy-external-ident}/{claim-number}/claim-reports'].post
+  update:
+    operationId: createClaimReport
+    summary: Post a loss-run claim financial report against a claim
+- target: $.paths['/v1/events'].post
+  update:
+    operationId: createEvent
+- target: $.paths['/v1/events/{external-ident}'].patch
+  update:
+    operationId: updateEvent
+- target: $.paths['/v1/event-types/{company-ident}'].get
+  update:
+    operationId: listEventTypes
+- target: $.paths['/v1/files'].post
+  update:
+    operationId: createFiles
+- target: $.paths['/v2/company'].post
+  update:
+    operationId: upsertCompany
+- target: $.paths['/v2/policy'].post
+  update:
+    operationId: upsertPolicy
+- target: $.paths['/v2/program'].post
+  update:
+    operationId: upsertProgram
+- target: $.paths['/v1/bulk/answers'].post
+  update:
+    operationId: bulkCreateAnswers
+- target: $.paths['/v1/bulk/answer-updates'].post
+  update:
+    operationId: bulkUpdateAnswers
+- target: $.paths['/v2/bulk/answers'].post
+  update:
+    operationId: bulkUpsertAnswers
+- target: $.paths['/v2/bulk/policies'].post
+  update:
+    operationId: bulkUpsertPolicies
+- target: $.paths['/v2/bulk/programs'].post
+  update:
+    operationId: bulkUpsertPrograms
+- target: $.paths['/v2/bulk/exposures'].post
+  update:
+    operationId: bulkUpsertExposures
+- target: $.paths['/v2/bulk/exposure-summations'].post
+  update:
+    operationId: bulkUpsertExposureSummations
+- target: $.paths['/v1/bulk/status/{id}'].get
+  update:
+    operationId: getBulkJobStatus
