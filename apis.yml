@@ -41,52 +41,13 @@ tags_raw:
 - enterprise-risk-management
 - insurtech
 apis:
-- name: Aclaimant Platform API
-  description: >-
-    The Aclaimant Platform API (x-id "platform-api") is the end-user integration surface for a company or
-    collective on the Aclaimant platform. Swagger 2.0, base path /api, JSON in and JSON / transit+json / edn
-    out, authenticated with the x-aclaimant-api-key header. 25 operations across answers (workflow answer
-    bundles), incidents, claims and claim reports, events and event types, files, companies, policies,
-    policy programs, exposures and exposure summations, plus v2 bulk upsert jobs that enqueue work and return
-    a status URL polled at /v1/bulk/status/{id}.
-  humanURL: https://api.aclaimant.com/api/index.html
-  baseURL: https://api.aclaimant.com/api
-  tags:
-  - Risk Management
-  - Claims Management
-  - Incident Management
-  - Insurance
-  - Safety
-  tags_raw:
-  - risk-management
-  - claims-management
-  - incident-management
-  - insurance
-  - safety
-  properties:
-  - type: OpenAPI
-    url: openapi/aclaimant-platform-api-openapi.json
-  - type: APIReference
-    url: https://api.aclaimant.com/api/index.html
-  - type: Authentication
-    url: authentication/aclaimant-authentication.yml
-  - type: Conventions
-    url: conventions/aclaimant-conventions.yml
-  - type: DataModel
-    url: data-model/aclaimant-data-model.yml
-  - type: ErrorCatalog
-    url: errors/aclaimant-problem-types.yml
-  - type: Overlay
-    url: overlays/aclaimant-platform-api-overlay.yaml
-  - type: Sandbox
-    url: sandbox/aclaimant-sandbox.yml
 - name: Aclaimant Partner / Third-party API
   description: >-
-    Callback API for TPAs, carriers, brokers and other Aclaimant partners working claims on behalf of an
-    Aclaimant customer. Base URL https://api.aclaimant.com/partner, bearer-token authorization issued by
-    Aclaimant. Two documented endpoints - POST /claims/{claim-id}/receipt to acknowledge a submitted claim
-    with the partner's own claim number and receipt status, and PUT /claims/{claim-id} to post claim status
-    and the latest loss-run claim-report financials (medical, indemnity, expense, legal, vocational,
+    Callback API for TPAs, carriers, brokers and other Aclaimant partners working claims on behalf of
+    an Aclaimant customer. Base URL https://api.aclaimant.com/partner, bearer-token authorization issued
+    by Aclaimant. Two documented endpoints - POST /claims/{claim-id}/receipt to acknowledge a submitted
+    claim with the partner's own claim number and receipt status, and PUT /claims/{claim-id} to post claim
+    status and the latest loss-run claim-report financials (medical, indemnity, expense, legal, vocational,
     recovery, general, property-damage, cargo-loss, cargo-damage) back into Aclaimant. Documented on the
     public developer portal; no machine-readable contract is published for this surface.
   humanURL: https://developer.aclaimant.com/partner/index.html
@@ -108,6 +69,160 @@ apis:
     url: errors/aclaimant-problem-types.yml
   - type: Authentication
     url: authentication/aclaimant-authentication.yml
+- aid: aclaimant:aclaimant-answers-api
+  name: Aclaimant Answers API
+  description: The answers API from Aclaimant — 15 operation(s) for answers.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - answers
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-answers-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-bulk-api
+  name: Aclaimant Bulk API
+  description: The bulk API from Aclaimant — 8 operation(s) for bulk.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-bulk-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-companies-api
+  name: Aclaimant Companies API
+  description: The companies API from Aclaimant — 1 operation(s) for companies.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - companies
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-companies-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-exposures-api
+  name: Aclaimant Exposures API
+  description: The exposures API from Aclaimant — 2 operation(s) for exposures.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - exposures
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-exposures-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-incidents-api
+  name: Aclaimant Incidents API
+  description: The incidents API from Aclaimant — 1 operation(s) for incidents.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - incidents
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-incidents-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-policies-api
+  name: Aclaimant Policies API
+  description: The policies API from Aclaimant — 2 operation(s) for policies.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - policies
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-policies-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
+- aid: aclaimant:aclaimant-policy-programs-api
+  name: Aclaimant Policy Programs API
+  description: The policy-programs API from Aclaimant — 2 operation(s) for policy-programs.
+  humanURL: https://api.aclaimant.com/api/index.html
+  baseURL: https://api.aclaimant.com/api
+  tags:
+  - policy-programs
+  properties:
+  - type: OpenAPI
+    url: openapi/aclaimant-policy-programs-api-openapi.yml
+  - type: APIReference
+    url: https://api.aclaimant.com/api/index.html
+  - type: Authentication
+    url: authentication/aclaimant-authentication.yml
+  - type: Conventions
+    url: conventions/aclaimant-conventions.yml
+  - type: DataModel
+    url: data-model/aclaimant-data-model.yml
+  - type: ErrorCatalog
+    url: errors/aclaimant-problem-types.yml
+  - type: Sandbox
+    url: sandbox/aclaimant-sandbox.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
