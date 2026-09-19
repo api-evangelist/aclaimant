@@ -75,6 +75,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Answers
+  tags_raw:
   - answers
   properties:
   - type: OpenAPI
@@ -97,6 +99,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Bulk
+  tags_raw:
   - bulk
   properties:
   - type: OpenAPI
@@ -119,6 +123,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Companies
+  tags_raw:
   - companies
   properties:
   - type: OpenAPI
@@ -141,6 +147,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Exposures
+  tags_raw:
   - exposures
   properties:
   - type: OpenAPI
@@ -163,6 +171,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Incidents
+  tags_raw:
   - incidents
   properties:
   - type: OpenAPI
@@ -185,6 +195,8 @@ apis:
   humanURL: https://api.aclaimant.com/api/index.html
   baseURL: https://api.aclaimant.com/api
   tags:
+  - Policies
+  tags_raw:
   - policies
   properties:
   - type: OpenAPI
