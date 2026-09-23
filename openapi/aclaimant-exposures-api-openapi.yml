@@ -1,0 +1,187 @@
+openapi: 3.2.0
+info:
+  title: Aclaimant Platform Exposures API
+  description: Summary of endpoints
+servers:
+- url: /api
+tags:
+- name: Exposures
+paths:
+  /v2/bulk/exposure-summations:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Upsert many exposure summations. Enqueues a bulk job and returns a status URL
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Exposures
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      end-date:
+                        description: date (format like "2011-01-23")
+                        title: exposure/end-date
+                        example: '2011-03-24'
+                      subcategory-value:
+                        type:
+                        - string
+                        - 'null'
+                      asset-workflow:
+                        type: string
+                      location-workflow:
+                        type: string
+                      hierarchy:
+                        type: string
+                      location-workflow-id:
+                        type: string
+                        format: uuid
+                      path-values:
+                        type: array
+                        items:
+                          type: string
+                      company-ident:
+                        type: string
+                        title: company-ident
+                        example: COMPANY_IDENT
+                      category-name:
+                        type:
+                        - string
+                        - 'null'
+                      category-value:
+                        type:
+                        - string
+                        - 'null'
+                      asset-workflow-id:
+                        type: string
+                        format: uuid
+                      subcategory-name:
+                        type:
+                        - string
+                        - 'null'
+                      start-date:
+                        description: date (format like "2011-01-23")
+                        title: exposure/start-date
+                        example: '2011-03-24'
+                      data:
+                        type: object
+                      hierarchy-output-map-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - company-ident
+                    - data
+                    - start-date
+                    - asset-workflow
+                    - asset-workflow-id
+                    - location-workflow
+                    - location-workflow-id
+                    - hierarchy
+                    - hierarchy-output-map-id
+                    - path-values
+                payload-url:
+                  type:
+                  - string
+                  - 'null'
+                description:
+                  type:
+                  - string
+                  - 'null'
+              title: quay.exposure-summations.bulk/upsert
+        required: true
+      operationId: postV2BulkExposureSummations
+      x-operation-id-source: derived
+  /v2/bulk/exposures:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Upsert many exposures to assets and locations.
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Exposures
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      end-date:
+                        description: date (format like "2011-01-23")
+                        title: exposure/end-date
+                        example: '2011-03-24'
+                      answer-bundle-external-identifier:
+                        type: string
+                        description: The external identifier of the asset or location
+                        title: asset or location external identifier
+                        example: ASSET_OR_LOCATION_ID
+                      subcategory-value:
+                        type:
+                        - string
+                        - 'null'
+                      company-ident:
+                        type: string
+                        title: company-ident
+                        example: COMPANY_IDENT
+                      category-name:
+                        type:
+                        - string
+                        - 'null'
+                      category-value:
+                        type:
+                        - string
+                        - 'null'
+                      subcategory-name:
+                        type:
+                        - string
+                        - 'null'
+                      start-date:
+                        description: date (format like "2011-01-23")
+                        title: exposure/start-date
+                        example: '2011-03-24'
+                      data:
+                        type: object
+                      answer-bundle-model-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - company-ident
+                    - data
+                    - start-date
+                    - answer-bundle-external-identifier
+                    - answer-bundle-model-id
+                payload-url:
+                  type:
+                  - string
+                  - 'null'
+                description:
+                  type:
+                  - string
+                  - 'null'
+              title: quay.exposures.bulk/upsert
+        required: true
+      operationId: postV2BulkExposures
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-aclaimant-api-key
+x-id:
+- platform-api

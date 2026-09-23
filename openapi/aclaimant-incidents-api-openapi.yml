@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  title: Aclaimant Platform Incidents API
+  description: Summary of endpoints
+servers:
+- url: /api
+tags:
+- name: Incidents
+paths:
+  /v1/incidents:
+    post:
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    enum:
+                    - pending
+                    - success
+                    - error
+                    type: string
+                    title: quay.api/result
+                  incident-ident:
+                    type: string
+                  incident-id:
+                    type: string
+                    format: uuid
+                required:
+                - result
+                - incident-ident
+                - incident-id
+            application/transit+json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    enum:
+                    - pending
+                    - success
+                    - error
+                    type: string
+                    title: quay.api/result
+                  incident-ident:
+                    type: string
+                  incident-id:
+                    type: string
+                    format: uuid
+                required:
+                - result
+                - incident-ident
+                - incident-id
+            application/edn:
+              schema:
+                type: object
+                properties:
+                  result:
+                    enum:
+                    - pending
+                    - success
+                    - error
+                    type: string
+                    title: quay.api/result
+                  incident-ident:
+                    type: string
+                  incident-id:
+                    type: string
+                    format: uuid
+                required:
+                - result
+                - incident-ident
+                - incident-id
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: {}
+                  incident-ident:
+                    type: string
+                required:
+                - error
+                - incident-ident
+            application/transit+json:
+              schema:
+                type: object
+                properties:
+                  error: {}
+                  incident-ident:
+                    type: string
+                required:
+                - error
+                - incident-ident
+            application/edn:
+              schema:
+                type: object
+                properties:
+                  error: {}
+                  incident-ident:
+                    type: string
+                required:
+                - error
+                - incident-ident
+      summary: Create an incident (v2)
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Incidents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                incident:
+                  type: object
+                  properties:
+                    incident-ident:
+                      type: string
+                    company-ident:
+                      type: string
+                      title: company-ident
+                      example: COMPANY_IDENT
+                  required:
+                  - incident-ident
+                  - company-ident
+                  title: aclaimant.service.routes.quay/incident
+                integration:
+                  description: keyword or keywordable string
+                  title: aclaimant.service.routes.quay/integration
+              required:
+              - incident
+        required: true
+      operationId: postV1Incidents
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-aclaimant-api-key
+x-id:
+- platform-api

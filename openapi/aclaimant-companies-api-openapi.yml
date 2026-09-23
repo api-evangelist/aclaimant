@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Aclaimant Platform Companies API
+  description: Summary of endpoints
+servers:
+- url: /api
+tags:
+- name: Companies
+paths:
+  /v2/company:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Create or update a company, optionally porting config from a source company
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                collective-name:
+                  type: string
+                integration-ident:
+                  type: string
+                wide-logo-url:
+                  type: string
+                port-from-company-slug:
+                  type: string
+                logo-url:
+                  type: string
+                collective-id:
+                  type: string
+                  format: uuid
+                authentication-policy-name:
+                  type: string
+                name:
+                  type: string
+                slug:
+                  type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - {}
+                onboarding-status:
+                  type: string
+                default-time-zone:
+                  type: string
+              required:
+              - name
+              - slug
+              - default-time-zone
+              - authentication-policy-name
+              - onboarding-status
+              title: quay.company/upsert
+        required: true
+      operationId: postV2Company
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-aclaimant-api-key
+x-id:
+- platform-api

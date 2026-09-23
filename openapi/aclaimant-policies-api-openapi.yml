@@ -1,0 +1,780 @@
+openapi: 3.2.0
+info:
+  title: Aclaimant Platform Policies API
+  description: Summary of endpoints
+servers:
+- url: /api
+tags:
+- name: Policies
+paths:
+  /v2/bulk/policies:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Upsert many policies. Enqueues a bulk job and returns a status URL
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Policies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      company-ident:
+                        type: string
+                        title: company-ident
+                        example: COMPANY_IDENT
+                      policy:
+                        type: object
+                        properties:
+                          extensions:
+                            type: object
+                            properties:
+                              named-insured:
+                                type: string
+                              broker-name:
+                                type: string
+                              currency:
+                                type: string
+                              broker-compensation-type:
+                                type: array
+                                items:
+                                  type: string
+                              broker-total-commission:
+                                description: numeric monetary value
+                                title: policy-extension/broker-total-commission
+                                type: number
+                                example: 123.42
+                              master-policy-number:
+                                type: string
+                              parent-carrier:
+                                type: string
+                              status:
+                                type: string
+                              inception-date:
+                                description: date (format like "2011-01-23")
+                                title: policy-extension/inception-date
+                                example: '2011-03-24'
+                              broker-commission-percentage:
+                                type: number
+                                format: double
+                              broker-total-fee:
+                                description: numeric monetary value
+                                title: policy-extension/broker-total-fee
+                                type: number
+                                example: 123.42
+                              broker-producer:
+                                type: string
+                              market:
+                                type: array
+                                items:
+                                  type: string
+                            title: policy/extensions
+                          close-with-date:
+                            type: boolean
+                          label:
+                            type:
+                            - string
+                            - 'null'
+                          policy-number:
+                            type: string
+                          external-identifier:
+                            type: string
+                            description: The external identifier of the policy
+                            title: policy external identifier
+                            example: POLICY_ID
+                          lookup:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              external-identifier:
+                                type: string
+                                description: The external identifier of the policy
+                                title: policy external identifier
+                                example: POLICY_ID
+                              carrier:
+                                type: string
+                              policy-number:
+                                type: string
+                            x-allOf:
+                            - type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                external-identifier:
+                                  type: string
+                                  description: The external identifier of the policy
+                                  title: policy external identifier
+                                  example: POLICY_ID
+                                carrier:
+                                  type: string
+                                policy-number:
+                                  type: string
+                            - {}
+                          periods:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                effective:
+                                  description: date (format like "2011-01-23")
+                                  title: policy-period/effective
+                                  example: '2011-03-24'
+                                external-identifier:
+                                  type: string
+                                  description: The external identifier of the policy-period
+                                  title: policy-period external identifier
+                                  example: POLICY_PERIOD_ID
+                                expiration:
+                                  description: date (format like "2011-01-23")
+                                  title: policy-period/expiration
+                                  example: '2011-03-24'
+                                lines-of-coverage:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      extensions:
+                                        type: object
+                                        properties:
+                                          premium-invoice-total:
+                                            description: numeric monetary value
+                                            title: loc-extension/premium-invoice-total
+                                            type: number
+                                            example: 123.42
+                                          layer-number:
+                                            type: number
+                                            format: double
+                                          drop-down-coverage:
+                                            type: boolean
+                                          is-limit-per-claim:
+                                            type: boolean
+                                          premium-basis:
+                                            type: string
+                                          bond-effective-end:
+                                            description: date (format like "2011-01-23")
+                                            title: loc-extension/bond-effective-end
+                                            example: '2011-03-24'
+                                          bond-effective-start:
+                                            description: date (format like "2011-01-23")
+                                            title: loc-extension/bond-effective-start
+                                            example: '2011-03-24'
+                                          gross-premium-total:
+                                            description: numeric monetary value
+                                            title: loc-extension/gross-premium-total
+                                            type: number
+                                            example: 123.42
+                                          coverage-trigger:
+                                            type: string
+                                          bond-invoiced-period:
+                                            type: array
+                                            items:
+                                              type: string
+                                          taxes-and-fees:
+                                            description: numeric monetary value
+                                            title: loc-extension/taxes-and-fees
+                                            type: number
+                                            example: 123.42
+                                          premium-adjustments:
+                                            description: numeric monetary value
+                                            title: loc-extension/premium-adjustments
+                                            type: number
+                                            example: 123.42
+                                          cancelled-bond:
+                                            type: string
+                                          sir-amount:
+                                            description: numeric monetary value
+                                            title: loc-extension/sir-amount
+                                            type: number
+                                            example: 123.42
+                                          occurrence-attachment-point:
+                                            type: number
+                                            format: double
+                                          policy-details:
+                                            type: string
+                                          alae-treatment:
+                                            type: string
+                                          policy-type:
+                                            type: string
+                                          bond-type:
+                                            type: string
+                                          bond-contact:
+                                            type: string
+                                            format: uuid
+                                          bond-status:
+                                            type: string
+                                          sub-coverage-line:
+                                            type: string
+                                          bond-fe-taxes:
+                                            description: numeric monetary value
+                                            title: loc-extension/bond-fe-taxes
+                                            type: number
+                                            example: 123.42
+                                          terms-and-conditions:
+                                            type: string
+                                          endorsement:
+                                            type: string
+                                          layer-type:
+                                            type: string
+                                          attach-amount:
+                                            type: number
+                                            format: double
+                                          net-premium:
+                                            description: numeric monetary value
+                                            title: loc-extension/net-premium
+                                            type: number
+                                            example: 123.42
+                                          program-year:
+                                            type: string
+                                          retro-date:
+                                            description: date (format like "2011-01-23")
+                                            title: loc-extension/retro-date
+                                            example: '2011-03-24'
+                                          tail-date:
+                                            description: date (format like "2011-01-23")
+                                            title: loc-extension/tail-date
+                                            example: '2011-03-24'
+                                          quota-share-percent:
+                                            type: number
+                                            format: double
+                                          aggregate-deductible:
+                                            description: numeric monetary value
+                                            title: loc-extension/aggregate-deductible
+                                            type: number
+                                            example: 123.42
+                                          limit-type:
+                                            type: string
+                                        title: line-of-coverage/extensions
+                                      additional-retentions:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            retention-type:
+                                              type: string
+                                            retention-description:
+                                              type: string
+                                            applies-to:
+                                              type: array
+                                              items:
+                                                type: string
+                                            retention-amount:
+                                              type: number
+                                              format: double
+                                          title: line-of-coverage/additional-retention
+                                      coverage-limit-per-claim:
+                                        description: numeric monetary value
+                                        title: line-of-coverage/coverage-limit-per-claim
+                                        type: number
+                                        example: 123.42
+                                      premium:
+                                        description: numeric monetary value
+                                        title: line-of-coverage/premium
+                                        type: number
+                                        example: 123.42
+                                      additional-limits:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            additional-limit-type:
+                                              type: string
+                                            additional-limit-description:
+                                              type: string
+                                            additional-limit-amount:
+                                              type: number
+                                              format: double
+                                            sublimit:
+                                              type: boolean
+                                            sublimit-description:
+                                              type: string
+                                            sublimit-amount:
+                                              type: number
+                                              format: double
+                                          title: line-of-coverage/additional-limit
+                                      external-identifier:
+                                        type: string
+                                        description: The external identifier of the line-of-coverage
+                                        title: line-of-coverage external identifier
+                                        example: LINE_OF_COVERAGE_ID
+                                      deductible:
+                                        description: numeric monetary value
+                                        title: line-of-coverage/deductible
+                                        type: number
+                                        example: 123.42
+                                      coverage-type:
+                                        x-allOf:
+                                        - {}
+                                        - {}
+                                      total-coverage-limit:
+                                        description: numeric monetary value
+                                        title: line-of-coverage/total-coverage-limit
+                                        type: number
+                                        example: 123.42
+                                    required:
+                                    - coverage-type
+                                    title: policy-period/line-of-coverage
+                                documents:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      filename:
+                                        type: string
+                                        description: A filename shown in the files list (e.g. "photo-01.jpg")
+                                        title: file/filename
+                                      content-type:
+                                        type: string
+                                        description: The content-type of the file data (e.g. "image/jpeg")
+                                        title: file/content-type
+                                      content-length:
+                                        type: integer
+                                        description: The content-length of the file data measured in bytes
+                                        title: file/content-length
+                                      coverage-types:
+                                        type: array
+                                        items:
+                                          x-allOf:
+                                          - {}
+                                          - {}
+                                      external-identifier:
+                                        type: string
+                                        description: The external identifier of the policy-period-document
+                                        title: policy-period-document external identifier
+                                        example: POLICY_PERIOD_DOCUMENT_ID
+                                    required:
+                                    - filename
+                                    - content-type
+                                    - content-length
+                                    - coverage-types
+                                    title: policy-period/document
+                                extensions:
+                                  type: object
+                                  properties:
+                                    policy-year:
+                                      type: integer
+                                      format: int64
+                                    policy-received:
+                                      type: boolean
+                                  title: policy-period/extensions
+                              required:
+                              - effective
+                              title: policy/period
+                          carrier:
+                            type: string
+                          description:
+                            type: string
+                        required:
+                        - carrier
+                        - policy-number
+                        - close-with-date
+                        title: quay.api/policy
+                    required:
+                    - company-ident
+                    - policy
+                payload-url:
+                  type:
+                  - string
+                  - 'null'
+                description:
+                  type:
+                  - string
+                  - 'null'
+              title: quay.policies.bulk/upsert
+        required: true
+      operationId: postV2BulkPolicies
+      x-operation-id-source: derived
+  /v2/policy:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Create or update a policy
+      security:
+      - apiKeyAuth: []
+      tags:
+      - Policies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company-ident:
+                  type: string
+                  title: company-ident
+                  example: COMPANY_IDENT
+                policy:
+                  type: object
+                  properties:
+                    extensions:
+                      type: object
+                      properties:
+                        named-insured:
+                          type: string
+                        broker-name:
+                          type: string
+                        currency:
+                          type: string
+                        broker-compensation-type:
+                          type: array
+                          items:
+                            type: string
+                        broker-total-commission:
+                          description: numeric monetary value
+                          title: policy-extension/broker-total-commission
+                          type: number
+                          example: 123.42
+                        master-policy-number:
+                          type: string
+                        parent-carrier:
+                          type: string
+                        status:
+                          type: string
+                        inception-date:
+                          description: date (format like "2011-01-23")
+                          title: policy-extension/inception-date
+                          example: '2011-03-24'
+                        broker-commission-percentage:
+                          type: number
+                          format: double
+                        broker-total-fee:
+                          description: numeric monetary value
+                          title: policy-extension/broker-total-fee
+                          type: number
+                          example: 123.42
+                        broker-producer:
+                          type: string
+                        market:
+                          type: array
+                          items:
+                            type: string
+                      title: policy/extensions
+                    close-with-date:
+                      type: boolean
+                    label:
+                      type:
+                      - string
+                      - 'null'
+                    policy-number:
+                      type: string
+                    external-identifier:
+                      type: string
+                      description: The external identifier of the policy
+                      title: policy external identifier
+                      example: POLICY_ID
+                    lookup:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        external-identifier:
+                          type: string
+                          description: The external identifier of the policy
+                          title: policy external identifier
+                          example: POLICY_ID
+                        carrier:
+                          type: string
+                        policy-number:
+                          type: string
+                      x-allOf:
+                      - type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          external-identifier:
+                            type: string
+                            description: The external identifier of the policy
+                            title: policy external identifier
+                            example: POLICY_ID
+                          carrier:
+                            type: string
+                          policy-number:
+                            type: string
+                      - {}
+                    periods:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          effective:
+                            description: date (format like "2011-01-23")
+                            title: policy-period/effective
+                            example: '2011-03-24'
+                          external-identifier:
+                            type: string
+                            description: The external identifier of the policy-period
+                            title: policy-period external identifier
+                            example: POLICY_PERIOD_ID
+                          expiration:
+                            description: date (format like "2011-01-23")
+                            title: policy-period/expiration
+                            example: '2011-03-24'
+                          lines-of-coverage:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                extensions:
+                                  type: object
+                                  properties:
+                                    premium-invoice-total:
+                                      description: numeric monetary value
+                                      title: loc-extension/premium-invoice-total
+                                      type: number
+                                      example: 123.42
+                                    layer-number:
+                                      type: number
+                                      format: double
+                                    drop-down-coverage:
+                                      type: boolean
+                                    is-limit-per-claim:
+                                      type: boolean
+                                    premium-basis:
+                                      type: string
+                                    bond-effective-end:
+                                      description: date (format like "2011-01-23")
+                                      title: loc-extension/bond-effective-end
+                                      example: '2011-03-24'
+                                    bond-effective-start:
+                                      description: date (format like "2011-01-23")
+                                      title: loc-extension/bond-effective-start
+                                      example: '2011-03-24'
+                                    gross-premium-total:
+                                      description: numeric monetary value
+                                      title: loc-extension/gross-premium-total
+                                      type: number
+                                      example: 123.42
+                                    coverage-trigger:
+                                      type: string
+                                    bond-invoiced-period:
+                                      type: array
+                                      items:
+                                        type: string
+                                    taxes-and-fees:
+                                      description: numeric monetary value
+                                      title: loc-extension/taxes-and-fees
+                                      type: number
+                                      example: 123.42
+                                    premium-adjustments:
+                                      description: numeric monetary value
+                                      title: loc-extension/premium-adjustments
+                                      type: number
+                                      example: 123.42
+                                    cancelled-bond:
+                                      type: string
+                                    sir-amount:
+                                      description: numeric monetary value
+                                      title: loc-extension/sir-amount
+                                      type: number
+                                      example: 123.42
+                                    occurrence-attachment-point:
+                                      type: number
+                                      format: double
+                                    policy-details:
+                                      type: string
+                                    alae-treatment:
+                                      type: string
+                                    policy-type:
+                                      type: string
+                                    bond-type:
+                                      type: string
+                                    bond-contact:
+                                      type: string
+                                      format: uuid
+                                    bond-status:
+                                      type: string
+                                    sub-coverage-line:
+                                      type: string
+                                    bond-fe-taxes:
+                                      description: numeric monetary value
+                                      title: loc-extension/bond-fe-taxes
+                                      type: number
+                                      example: 123.42
+                                    terms-and-conditions:
+                                      type: string
+                                    endorsement:
+                                      type: string
+                                    layer-type:
+                                      type: string
+                                    attach-amount:
+                                      type: number
+                                      format: double
+                                    net-premium:
+                                      description: numeric monetary value
+                                      title: loc-extension/net-premium
+                                      type: number
+                                      example: 123.42
+                                    program-year:
+                                      type: string
+                                    retro-date:
+                                      description: date (format like "2011-01-23")
+                                      title: loc-extension/retro-date
+                                      example: '2011-03-24'
+                                    tail-date:
+                                      description: date (format like "2011-01-23")
+                                      title: loc-extension/tail-date
+                                      example: '2011-03-24'
+                                    quota-share-percent:
+                                      type: number
+                                      format: double
+                                    aggregate-deductible:
+                                      description: numeric monetary value
+                                      title: loc-extension/aggregate-deductible
+                                      type: number
+                                      example: 123.42
+                                    limit-type:
+                                      type: string
+                                  title: line-of-coverage/extensions
+                                additional-retentions:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      retention-type:
+                                        type: string
+                                      retention-description:
+                                        type: string
+                                      applies-to:
+                                        type: array
+                                        items:
+                                          type: string
+                                      retention-amount:
+                                        type: number
+                                        format: double
+                                    title: line-of-coverage/additional-retention
+                                coverage-limit-per-claim:
+                                  description: numeric monetary value
+                                  title: line-of-coverage/coverage-limit-per-claim
+                                  type: number
+                                  example: 123.42
+                                premium:
+                                  description: numeric monetary value
+                                  title: line-of-coverage/premium
+                                  type: number
+                                  example: 123.42
+                                additional-limits:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      additional-limit-type:
+                                        type: string
+                                      additional-limit-description:
+                                        type: string
+                                      additional-limit-amount:
+                                        type: number
+                                        format: double
+                                      sublimit:
+                                        type: boolean
+                                      sublimit-description:
+                                        type: string
+                                      sublimit-amount:
+                                        type: number
+                                        format: double
+                                    title: line-of-coverage/additional-limit
+                                external-identifier:
+                                  type: string
+                                  description: The external identifier of the line-of-coverage
+                                  title: line-of-coverage external identifier
+                                  example: LINE_OF_COVERAGE_ID
+                                deductible:
+                                  description: numeric monetary value
+                                  title: line-of-coverage/deductible
+                                  type: number
+                                  example: 123.42
+                                coverage-type:
+                                  x-allOf:
+                                  - {}
+                                  - {}
+                                total-coverage-limit:
+                                  description: numeric monetary value
+                                  title: line-of-coverage/total-coverage-limit
+                                  type: number
+                                  example: 123.42
+                              required:
+                              - coverage-type
+                              title: policy-period/line-of-coverage
+                          documents:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                filename:
+                                  type: string
+                                  description: A filename shown in the files list (e.g. "photo-01.jpg")
+                                  title: file/filename
+                                content-type:
+                                  type: string
+                                  description: The content-type of the file data (e.g. "image/jpeg")
+                                  title: file/content-type
+                                content-length:
+                                  type: integer
+                                  description: The content-length of the file data measured in bytes
+                                  title: file/content-length
+                                coverage-types:
+                                  type: array
+                                  items:
+                                    x-allOf:
+                                    - {}
+                                    - {}
+                                external-identifier:
+                                  type: string
+                                  description: The external identifier of the policy-period-document
+                                  title: policy-period-document external identifier
+                                  example: POLICY_PERIOD_DOCUMENT_ID
+                              required:
+                              - filename
+                              - content-type
+                              - content-length
+                              - coverage-types
+                              title: policy-period/document
+                          extensions:
+                            type: object
+                            properties:
+                              policy-year:
+                                type: integer
+                                format: int64
+                              policy-received:
+                                type: boolean
+                            title: policy-period/extensions
+                        required:
+                        - effective
+                        title: policy/period
+                    carrier:
+                      type: string
+                    description:
+                      type: string
+                  required:
+                  - carrier
+                  - policy-number
+                  - close-with-date
+                  title: quay.api/policy
+              required:
+              - company-ident
+              - policy
+              title: quay.policy/upsert
+        required: true
+      operationId: postV2Policy
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-aclaimant-api-key
+x-id:
+- platform-api

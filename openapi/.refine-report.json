@@ -1,0 +1,41 @@
+{
+  "provider": "aclaimant",
+  "sources": [
+    "_original/aclaimant-platform-api-swagger.json"
+  ],
+  "outputs": [
+    "aclaimant-answers-api-openapi.yml",
+    "aclaimant-bulk-api-openapi.yml",
+    "aclaimant-companies-api-openapi.yml",
+    "aclaimant-exposures-api-openapi.yml",
+    "aclaimant-incidents-api-openapi.yml",
+    "aclaimant-policies-api-openapi.yml",
+    "aclaimant-policy-programs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [
+    "aclaimant-platform-api-swagger.json: info.version missing"
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aclaimant-platform-api-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "aclaimant-platform-api-swagger.json: declared missing tag: answers",
+    "aclaimant-platform-api-swagger.json: declared missing tag: bulk",
+    "aclaimant-platform-api-swagger.json: declared missing tag: companies",
+    "aclaimant-platform-api-swagger.json: declared missing tag: exposures",
+    "aclaimant-platform-api-swagger.json: declared missing tag: incidents",
+    "aclaimant-platform-api-swagger.json: declared missing tag: policies",
+    "aclaimant-platform-api-swagger.json: declared missing tag: policy-programs",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "aclaimant-answers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-bulk-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-companies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-exposures-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-incidents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aclaimant-policy-programs-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

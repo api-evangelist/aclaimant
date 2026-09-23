@@ -1,0 +1,150 @@
+openapi: 3.2.0
+info:
+  title: Aclaimant Platform Policy Programs API
+  description: Summary of endpoints
+servers:
+- url: /api
+tags:
+- name: policy-programs
+paths:
+  /v2/program:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Create or update a policy program
+      security:
+      - apiKeyAuth: []
+      tags:
+      - policy-programs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company-ident:
+                  type: string
+                  title: company-ident
+                  example: COMPANY_IDENT
+                program:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      description: string that is not empty or whitespace only
+                      title: program/name
+                    coverage-types:
+                      type: array
+                      items:
+                        description: coverage type string (e.g. "workers-comp")
+                        title: claim/coverage-type
+                        example: workers-comp
+                    external-ident:
+                      type: string
+                      description: The external identifier of the program
+                      title: program external identifier
+                      example: PROGRAM_ID
+                    description:
+                      type: string
+                    currency:
+                      type: string
+                    loc-external-idents:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                  - name
+                  - coverage-types
+                  title: quay.api/program
+              required:
+              - company-ident
+              - program
+              title: quay.program/upsert
+        required: true
+      operationId: postV2Program
+      x-operation-id-source: derived
+  /v2/bulk/programs:
+    post:
+      responses:
+        default:
+          description: ''
+      summary: Upsert many policy programs. Enqueues a bulk job and returns a status URL
+      security:
+      - apiKeyAuth: []
+      tags:
+      - policy-programs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      company-ident:
+                        type: string
+                        title: company-ident
+                        example: COMPANY_IDENT
+                      program:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            description: string that is not empty or whitespace only
+                            title: program/name
+                          coverage-types:
+                            type: array
+                            items:
+                              description: coverage type string (e.g. "workers-comp")
+                              title: claim/coverage-type
+                              example: workers-comp
+                          external-ident:
+                            type: string
+                            description: The external identifier of the program
+                            title: program external identifier
+                            example: PROGRAM_ID
+                          description:
+                            type: string
+                          currency:
+                            type: string
+                          loc-external-idents:
+                            type: array
+                            items:
+                              type: string
+                        required:
+                        - name
+                        - coverage-types
+                        title: quay.api/program
+                    required:
+                    - company-ident
+                    - program
+                payload-url:
+                  type:
+                  - string
+                  - 'null'
+                description:
+                  type:
+                  - string
+                  - 'null'
+              title: quay.programs.bulk/upsert
+        required: true
+      operationId: postV2BulkPrograms
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-aclaimant-api-key
+x-id:
+- platform-api
