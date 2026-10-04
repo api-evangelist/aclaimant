@@ -241,6 +241,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/aclaimant-capability-edges.yml
+  name: Aclaimant Business Capability Map
 - type: TrustCenter
   url: security/aclaimant-trust-center.yml
 - type: Website
