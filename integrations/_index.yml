@@ -16,3 +16,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: aclaimant-procore-own
+  label: Procore (own)
+  partner: procore
+  partner_name: Procore (own)
+  category: Other
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.procore.com/apps/aclaimant
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
