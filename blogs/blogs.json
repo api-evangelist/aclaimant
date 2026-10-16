@@ -9,20 +9,20 @@
       "method": "discovered"
     },
     {
-      "source": "https://support.aclaimant.com/hc/en-us",
-      "feed_url": "https://support.aclaimant.com/hc/en-us",
-      "title": "",
-      "saved": 0,
-      "method": "none"
-    },
-    {
       "source": "https://www.aclaimant.com/blog/rss.xml",
       "feed_url": "https://www.aclaimant.com/blog/rss.xml",
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://support.aclaimant.com/hc/en-us",
+      "feed_url": "https://support.aclaimant.com/hc/en-us",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 10,
-  "fetched": "2026-10-03T12:30:02Z"
+  "fetched": "2026-10-10T13:15:00Z"
 }
