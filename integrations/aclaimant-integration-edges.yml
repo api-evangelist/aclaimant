@@ -2,7 +2,6 @@ generated: '2026-10-14'
 method: searched
 checked:
 - bamboohr/integrations/bamboohr-integration-edges.yml
-- procore/integrations/procore-integration-edges.yml
 source:
 - bamboohr/integrations/bamboohr-integration-edges.yml
 edges:
@@ -23,20 +22,3 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Safety & Compliance
-- partner_name: Procore (own)
-  partner: procore
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.procore.com/apps/aclaimant
-  mirror_of: procore/integrations/procore-integration-edges.yml
-  apps:
-  - Aclaimant
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Other
