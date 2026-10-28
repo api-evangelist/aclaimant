@@ -64,43 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Aclaimant is a risk management information system (RMIS) used by policyholders, insurance brokers, carriers
-and third-party administrators to run incident reporting and first notice of loss (FNOL), claims management
-and analytics, safety and loss control, OSHA logs, policy management, and assets and exposures. Headquartered
-at 330 N. Wabash, 23rd Floor, Chicago, IL.
+Aclaimant is a Chicago-based risk management information system (RMIS) used by policyholders, insurance brokers, carriers and third-party administrators to run incident reporting and first notice of loss (FNOL), claims management and analytics, safety and loss control, OSHA logs, policy management, and assets and exposures from one workflow platform. Its machine-readable surface is the Aclaimant Platform API — a Swagger 2.0 contract published at api.aclaimant.com/api with a live Swagger UI console — which lets integrators create and upsert answer bundles, incidents, claims, claim reports, events, files, companies, policies, policy programs, exposures and exposure summations, including bulk jobs with a status endpoint. A separate Partner / Third-party API at api.aclaimant.com/partner lets carriers, TPAs and brokers acknowledge claim receipt and post loss-run claim financial updates back into Aclaimant.
 
-## APIs
+**Areas:** Risk Management · Insurance · Claims Management · Incident Management · Safety · RMIS · Workers Compensation · OSHA · Enterprise Risk Management · Insurtech
 
-| API | Base URL | Contract | Auth |
-|---|---|---|---|
-| Aclaimant Platform API | `https://api.aclaimant.com/api` | [Swagger 2.0](https://api.aclaimant.com/api/swagger.json), 24 paths / 25 operations | `x-aclaimant-api-key` header |
-| Aclaimant Partner / Third-party API | `https://api.aclaimant.com/partner` | prose only, [developer portal](https://developer.aclaimant.com/partner/index.html) | `Authorization: Bearer` |
+## Aclaimant on APIs.io
 
-- Developer portal: <https://developer.aclaimant.com/>
-- Live Swagger UI console: <https://api.aclaimant.com/api/index.html>
-- Help center: <https://support.aclaimant.com/hc/en-us>
-- Status page: <https://status.aclaimant.com/> · Trust center: <https://trust.aclaimant.com/>
-- Responsible disclosure: <https://www.aclaimant.com/responsible-disclosure>
+Everything profiled for Aclaimant is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aclaimant/](https://apis.io/providers/aclaimant/)** — or go straight to one of the APIs or properties below.
 
-## What this profile records
+### APIs (8)
 
-Artifacts in this repository were searched, probed or derived on 2026-09-06 from public sources only:
-`openapi/`, `authentication/`, `conventions/`, `conformance/`, `errors/`, `lifecycle/`, `changelog/`,
-`data-model/`, `packages/`, `plans/`, `rate-limits/`, `sandbox/`, `security/`, `skills/`, `llms/`,
-`overlays/`, `mcp/`, `well-known/`.
+- [Aclaimant Partner / Third-party API](https://apis.io/apis/aclaimant/aclaimant-partner-third-party-api/) — Callback API for TPAs, carriers, brokers and other Aclaimant partners working claims on behalf of an Aclaimant customer. Base URL…
+- [Aclaimant Answers API](https://apis.io/apis/aclaimant/aclaimant-answers-api/) — The answers API from Aclaimant — 15 operation(s) for answers.
+- [Aclaimant Bulk API](https://apis.io/apis/aclaimant/aclaimant-bulk-api/) — The bulk API from Aclaimant — 8 operation(s) for bulk.
+- [Aclaimant Companies API](https://apis.io/apis/aclaimant/aclaimant-companies-api/) — The companies API from Aclaimant — 1 operation(s) for companies.
+- [Aclaimant Exposures API](https://apis.io/apis/aclaimant/aclaimant-exposures-api/) — The exposures API from Aclaimant — 2 operation(s) for exposures.
+- [Aclaimant Incidents API](https://apis.io/apis/aclaimant/aclaimant-incidents-api/) — The incidents API from Aclaimant — 1 operation(s) for incidents.
+- [Aclaimant Policies API](https://apis.io/apis/aclaimant/aclaimant-policies-api/) — The policies API from Aclaimant — 2 operation(s) for policies.
+- [Aclaimant Policy Programs API](https://apis.io/apis/aclaimant/aclaimant-policy-programs-api/) — The policy-programs API from Aclaimant — 2 operation(s) for policy-programs.
 
-Notable findings:
+### Published properties
 
-- The machine-readable contract was **not** on the documentation host. It is served from the API host root
-  at `https://api.aclaimant.com/api/swagger.json`, discovered through the Swagger UI's `config.json`.
-- **Idempotency is partial**: the v2 upserts and PATCH operations are replay-safe because they key on a
-  caller-supplied `external-ident`, but the nine v1 create operations and both Partner API writes are not,
-  and there is no `Idempotency-Key` header anywhere.
-- **Reversibility is absent**: no DELETE, cancel, void, reverse or restore operation exists on either
-  surface, and no restore window is published.
-- No MCP server, no A2A agent card, no `/.well-known/` document on any host, no first-party SDK in any
-  package registry, no webhooks or AsyncAPI, no GraphQL, no gRPC, no SOAP.
-- The certifications listed on <https://www.aclaimant.com/security> (ISO 27001, SOC-1/SOC-2/SOC-3, PCI
-  Level 1, FISMA) are attributed on that page to Aclaimant's **infrastructure partners** and are deliberately
-  not credited to Aclaimant. Aclaimant's own SOC 2 report, bridge letter, penetration test report and GDPR
-  statement are released to customers on request and are not published anonymously.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [aclaimant-mcp.yml](https://apis.io/servers/aclaimant/aclaimant-mcp-yml/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Aclaimant Platform Api Overlay](https://apis.io/overlays/aclaimant/aclaimant-platform-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aclaimant Authentication](https://apis.io/security/aclaimant/aclaimant-authentication/)
+- [Aclaimant Domain Security](https://apis.io/security/aclaimant/aclaimant-domain-security/)
+- [Aclaimant Trust Center](https://apis.io/security/aclaimant/aclaimant-trust-center/)
+- [Aclaimant Vulnerability Disclosure](https://apis.io/security/aclaimant/aclaimant-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Aclaimant Plans Pricing](https://apis.io/plans/aclaimant/aclaimant-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Aclaimant Rate Limits](https://apis.io/rate-limits/aclaimant/aclaimant-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.aclaimant.com/)
+- [Documentation](https://developer.aclaimant.com/)
+- [API reference](https://api.aclaimant.com/api/index.html)
+- [Pricing](https://www.aclaimant.com/plans-and-pricing)
+- [Support](https://support.aclaimant.com/hc/en-us)
+- [Changelog](https://support.aclaimant.com/hc/en-us/sections/4406733144859-Product-Updates-Releases)
+- [Blog](https://www.aclaimant.com/blog)
+- [Security](https://www.aclaimant.com/responsible-disclosure)
+- [Trust centre](https://trust.aclaimant.com/)
+- [Terms of service](https://www.aclaimant.com/service-agreement)
+- [Privacy policy](https://www.aclaimant.com/privacy-policy)
+- [GitHub](https://github.com/aclaimant)
+- [Status](https://status.aclaimant.com/)
+
+## API Evangelist rating
+
+**Kin Score 54.5** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 36.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 85.5 |
+
+**Agent readiness 27.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | derived (partial credit) |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.6** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aclaimant/](https://apis.io/providers/aclaimant/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aclaimant: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aclaimant/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
