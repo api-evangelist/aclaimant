@@ -99,6 +99,12 @@ OpenAPI overlays, including conversational phrasing for each operation.
 
 - [Aclaimant Platform Api Overlay](https://apis.io/overlays/aclaimant/aclaimant-platform-api-overlay/)
 
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Aclaimant API Rules](https://apis.io/rules/aclaimant/aclaimant-rules/)
+
 #### Security (4)
 
 Authentication, trust centre, and vulnerability disclosure.
@@ -120,6 +126,12 @@ Published request limits.
 
 - [Aclaimant Rate Limits](https://apis.io/rate-limits/aclaimant/aclaimant-rate-limits/)
 
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Aclaimant Finops](https://apis.io/finops/aclaimant/aclaimant-finops/)
+
 ## Where to find this API
 
 Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
@@ -140,18 +152,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 54.5** — strong · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 58.7** — strong · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 73.2 |
-| Contract quality | 36.5 |
-| Contract governance | 4.5 |
-| Operational transparency | 44.7 |
+| Contract quality | 40.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 47.6 |
 | Developer ergonomics | 54.2 |
-| Access clarity | 85.5 |
+| Access clarity | 91.5 |
 
-**Agent readiness 27.0** — agent-aware
+**Agent readiness 26.5** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -176,6 +188,10 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | na |
 | Operation Distinctiveness | distinct |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
 **Regulatory alignment 31.6** — Insurance
 
